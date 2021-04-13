@@ -1,3 +1,5 @@
+package basic;
+
 // Your First Program
 
 class HelloWorld {
