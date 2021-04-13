@@ -10,11 +10,12 @@ public class interfaceExample{
 interface Animal{
     String som();
 }
-interface Pet{
-    boolean isPartner();
-}
 
-class Dog implements Animal, Pet{
+
+abstract class Pet{
+    abstract boolean isPartner();
+}
+class Dog extends Pet implements Animal{
 
     @Override
     public boolean isPartner() {
