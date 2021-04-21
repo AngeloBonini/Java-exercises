@@ -1,10 +1,10 @@
 import java.io.*;
 import java.util.*;
 
-class NaoTemRaizesReaisException extends Exception {
+class NaoTemRaizesReaisException extends RuntimeException {
 };
 
-class EquacaoPrimeiroGrauException extends Exception {
+class EquacaoPrimeiroGrauException extends RuntimeException {
 };
 
 class RaizesRef {
@@ -42,10 +42,6 @@ class Raizes {
       System.out.println("x1 = " + raizes.x1 + "\nx2 = " + raizes.x2);            
     } catch (InputMismatchException e) {
       System.out.println("Numero incorreto");
-    } catch (NaoTemRaizesReaisException e) {
-      System.out.println("Erro: " + e);
-    } catch (EquacaoPrimeiroGrauException e) {
-      System.out.println("Erro: " + e);
     }
   }
 }
