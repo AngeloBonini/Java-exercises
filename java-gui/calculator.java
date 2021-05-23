@@ -7,6 +7,7 @@ public class calculator extends JFrame {
     
     String[]botoes = {"Soma", "Subtrai", "Multiplica", "Divide" };
             JPanel layout = new JPanel(new FlowLayout());
+            JPanel buttonLayout = new JPanel(new FlowLayout());
     calculator() {
         super("calculator");
         setLayout(new BorderLayout());
@@ -15,9 +16,10 @@ public class calculator extends JFrame {
         layout.add(new JComboBox<String>(botoes));
         layout.add(new JTextField(10));
         layout.add(new JLabel("= 0"));
+        buttonLayout.add(new Button("Calcular"));
 
         add(layout, BorderLayout.NORTH);
-        add(new Button("Calcular"), BorderLayout.SOUTH);
+        add(buttonLayout, BorderLayout.SOUTH);
         pack();
         setVisible(true);
     }
