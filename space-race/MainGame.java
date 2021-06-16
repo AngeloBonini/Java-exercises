@@ -5,18 +5,18 @@ import javax.swing.*;
 import java.io.*;
 import javax.imageio.*;
 
-public class MainGame {
-    Image img[] = new Image[3] ;
+class MainGame extends JFrame {
+  Image img[] = new Image[8] ;
   Desenho des = new Desenho();
 
   class Desenho extends JPanel {
 
     Desenho() {
       try {
-        setPreferredSize(new Dimension(700, 500));
-        img[0] = ImageIO.read(new File("background.jpg"));
-        img[1] = ImageIO.read(new File("rocket1.png"));
-        img[2] = ImageIO.read(new File("rocket2.png"));
+        setPreferredSize(new Dimension(600, 1000));
+        img[0] = ImageIO.read(new File("background.jpeg"));
+        // img[1] = ImageIO.read(new File("parado.gif"));
+        // img[2] = ImageIO.read(new File("anda0.gif"));
         // img[3] = ImageIO.read(new File("anda1.gif"));
         // img[4] = ImageIO.read(new File("soco0.gif"));
         // img[5] = ImageIO.read(new File("soco1.gif"));
@@ -36,7 +36,7 @@ public class MainGame {
   }
 
   MainGame() {
-    super("Trabalho");
+    super("Space Race");
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     add(des);
     pack();
@@ -45,5 +45,5 @@ public class MainGame {
 
   static public void main(String[] args) {
     MainGame f = new MainGame();
-  } 
+  }
 }
