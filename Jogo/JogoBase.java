@@ -13,7 +13,7 @@ class JogoBase extends JFrame {
 
     Desenho() {
       try {
-        setPreferredSize(new Dimension(700, 500));
+        setPreferredSize(new Dimension(500, 3000));
         img[0] = ImageIO.read(new File("fundo.jpeg"));
         img[1] = ImageIO.read(new File("parado.gif"));
         img[2] = ImageIO.read(new File("anda0.gif"));
@@ -33,6 +33,9 @@ class JogoBase extends JFrame {
       g.drawImage(img[0], 0, 0, getSize().width, getSize().height, this);
       Toolkit.getDefaultToolkit().sync();
     }
+  }
+  class Naves {
+
   }
 
   JogoBase() {
