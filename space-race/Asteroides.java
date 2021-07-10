@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Asteroides {
     
-    constructor(){
+    constructor(){ 
         this.raio = 5;
         this.resetAteroides();
     }
