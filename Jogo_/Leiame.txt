@@ -1,0 +1,21 @@
+Instruções para compilar
+
+1)Rode a classe CreateServer, preenchendo os campos:
+	Server Port cliente1:8888
+	Server Port cliente2:8889
+	IP Address: 224.0.0.3
+	Client1 Port: 5000
+	Client2 Port: 5001
+
+2)Rode a classe LoginCliente, preenchendo os campos:
+	Name: seu nome!
+	IP Address: 224.0.0.3
+	Client Port: 5000
+	Server Port: 8888
+
+2)Rode a classe LoginCliente novamente, preenchendo os campos:
+	Name: nome do adversário!
+	IP Address: 224.0.0.3
+	Client Port: 5001
+	Server Port: 8889
+
