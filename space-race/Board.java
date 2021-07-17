@@ -92,8 +92,8 @@ public class Board extends JPanel implements Runnable {
     }
 
     private void startGame() {
-        localPlayer.setPosition(
-                new Point(100, (int) this.getPreferredSize().getHeight() - localPlayer.getSize().height - 20));
+        localPlayer.setPosition(new Point((int) this.getPreferredSize().getWidth() - 100,
+                    (int) this.getPreferredSize().getHeight() - localPlayer.getSize().height - 20));
         nonPlayable.setPosition(new Point((int) this.getPreferredSize().getWidth() - 100,
                 (int) this.getPreferredSize().getHeight() - nonPlayable.getSize().height - 20));
         isPaused = false;
