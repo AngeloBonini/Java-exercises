@@ -102,7 +102,7 @@ public class jogo extends Canvas implements Runnable {
 	public jogo(String name, int controlevindo){
 		init();
 		setSize(new Dimension(1000, 1000));
-		frame = new JFrame("Batalha no Espaço - " + name);
+		frame = new JFrame("Batalha no EspaÃ§o - " + name);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);

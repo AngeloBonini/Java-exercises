@@ -14,7 +14,7 @@ public class MulticastSocketClient implements Runnable {
    
     public MulticastSocketClient (String name, String INET_ADDR, int PORTcliente, int PORT, int controle) {
 		this.name = name; //nome do jogo 
-		this.INET_ADDR = INET_ADDR; // endereço inet
+		this.INET_ADDR = INET_ADDR; // endereÃ§o inet
 		this.PORTcliente = PORTcliente; // Porta para enviar dados para o servidor 
 		this.PORT = PORT; // porta para receber do servidor
 		this.controle = controle;// escolha do player
@@ -24,10 +24,10 @@ public class MulticastSocketClient implements Runnable {
     public void run() {
     	jogo game = new jogo(name, controle);// cria jogo
     	game.start();// inicia o jogo
-        InetAddress address = null;// inicia endereço
+        InetAddress address = null;// inicia endereÃ§o
         DatagramPacket msgPacket= null;//inicia pacote para inserir dados e enviar para o servidor
 		try {
-			address = InetAddress.getByName(INET_ADDR);// atribui o endereço para a variavel
+			address = InetAddress.getByName(INET_ADDR);// atribui o endereÃ§o para a variavel
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
@@ -45,17 +45,17 @@ public class MulticastSocketClient implements Runnable {
 		e1.printStackTrace();
 	}
             try {
-				clientSocket.joinGroup(address);// se junta ao "grupo" do endereço(serve para varios clientes receber o mesmo dado)
+				clientSocket.joinGroup(address);// se junta ao "grupo" do endereÃ§o(serve para varios clientes receber o mesmo dado)
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
             while (!jogo.fecha) {
-            	String message = game.sendnudes();// atribui as variaveis à string message
+            	String message = game.sendnudes();// atribui as variaveis a string message
                 msgPacket = null;
                 msgPacket = new DatagramPacket(
     					message.getBytes(),
     					message.length(), address, PORTcliente
-    					);// o datagram recebe a string com o dado da porta que é para enviar
+    					);// o datagram recebe a string com o dado da porta que   para enviar
                 try {
 					enviaSocket.send(msgPacket);// envia para o servidor
 				} catch (IOException e) {
@@ -79,12 +79,12 @@ public class MulticastSocketClient implements Runnable {
               
                 
             }
-            String message = "fecha";// atribui as variaveis à string message
+            String message = "fecha";// atribui as variaveis a string message
             msgPacket = null;
             msgPacket = new DatagramPacket(
 					message.getBytes(),
 					message.length(), address, PORTcliente
-					);// o datagram recebe a string com o dado da porta que é para enviar
+					);// o datagram recebe a string com o dado da porta que a para enviar
             try {
 				enviaSocket.send(msgPacket);// envia para o servidor
 			} catch (IOException e) {

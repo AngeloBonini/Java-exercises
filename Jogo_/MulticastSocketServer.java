@@ -18,7 +18,7 @@ public class MulticastSocketServer {
     
     public MulticastSocketServer (int PORT, int serverport2, String INET_ADDR, int PORT1, int PORT2) {
 		this.PORT = PORT;// porta para enviar dados para o primeiro cliente
-		this.INET_ADDR = INET_ADDR;//endereço que os servidor vai trabalhar
+		this.INET_ADDR = INET_ADDR;//endereÃ§o que os servidor vai trabalhar
 		try {
 			addr = InetAddress.getByName(INET_ADDR);
 		} catch (UnknownHostException e) {
@@ -43,7 +43,7 @@ public class MulticastSocketServer {
     				e1.printStackTrace();
     			}
     	        try {
-    				cliente1.joinGroup(InetAddress.getByName(INET_ADDR));//se junta ao endereço 
+    				cliente1.joinGroup(InetAddress.getByName(INET_ADDR));//se junta ao endereÃ§o 
     			} catch (IOException e) {
     				e.printStackTrace();
     			}
@@ -94,7 +94,7 @@ public class MulticastSocketServer {
      				e1.printStackTrace();
      			}
      	        try {
-     				cliente2.joinGroup(InetAddress.getByName(INET_ADDR));// se junta ao endereço
+     				cliente2.joinGroup(InetAddress.getByName(INET_ADDR));// se junta ao endereÃ§o
      			} catch (IOException e) {
      				e.printStackTrace();
      			}
@@ -171,12 +171,12 @@ public class MulticastSocketServer {
 			e1.printStackTrace();
 		}
         try {
-			cliente1.joinGroup(InetAddress.getByName(INET_ADDR));//se junta ao endereço 
+			cliente1.joinGroup(InetAddress.getByName(INET_ADDR));//se junta ao endereï¿½o 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
         try {
-			cliente2.joinGroup(InetAddress.getByName(INET_ADDR));// se junta ao endereço
+			cliente2.joinGroup(InetAddress.getByName(INET_ADDR));// se junta ao endereï¿½o
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
