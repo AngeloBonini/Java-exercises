@@ -13,7 +13,6 @@ import javax.swing.*;
 
 public class Board extends JPanel implements Runnable {
 
-    private String playerName;
     private Thread thread;
     private LinkedList<Asteroid> asteroids;
     private LinkedList<Bullet> bullets;
@@ -26,7 +25,6 @@ public class Board extends JPanel implements Runnable {
     private static BufferedImage bluePlayerImage;
     private static BufferedImage[] asteroidImage = new BufferedImage[3];
     private static BufferedImage bulletImage;
-    private static BufferedImage texture;
     private boolean isPaused = true;
     private int asteroidTimer = 0;
     private float FPS;
@@ -43,9 +41,8 @@ public class Board extends JPanel implements Runnable {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
 
-    public Board(String serverIpAdress, String playerName) {
-        this.serverIpAdress = serverIpAdress;
-        this.playerName = playerName;
+    public Board() {
+   
         asteroids = new LinkedList<>();
         bullets = new LinkedList<>();
         setFocusable(true);
