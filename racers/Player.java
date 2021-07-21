@@ -14,25 +14,18 @@ public class Player {
 
     private final short WIDTH = 200, HEIGHT = 150;
     private int posX, posY;
-    private final int moveY = 10; // Velocidade de Movimento
-    // private int horizontalDirection;
+    private final int moveY = 10; 
     private Image loaded;
     private int state;
     private int verticalDirection;
-    // private final int LIMIT_X_LEFT = 60;
-    // private final int LIMIT_X_RIGHT = 940;
+
     private final int LIMIT_Y_TOP = 210;
     private final int LIMIT_Y_BOTTOM = 415;
 
     Player(Component parentComponent, int numberOfPlayer, int initialPosX, int initialPosY) {
         this.parentComponent = parentComponent;
         this.numberOfPlayer = numberOfPlayer;
-        // try {
-        //     if (this.numberOfPlayer == 1) {
-        //         loaded = ImageIO.read(new File("racers/img/pixil-frame-0.png"));
-        //     }
-        // } catch (IOException e) {
-        // }
+
 
         posX = initialPosX;
         posY = initialPosY;
@@ -40,6 +33,26 @@ public class Player {
         verticalDirection = 1;
 
     }
+         // Pintar Estado (Movimento/Ataque)
+         public void paintState(Graphics g) {
+            // Parado
+            if (state == 5) {
+                this.posY-= 10;
+                System.out.println(this.posY);
+                // posY -= verticalDirection * moveY;
+  
+                // Colisão
+                if (posY < LIMIT_Y_TOP) {
+                     posY = LIMIT_Y_TOP;
+                } else if (posY > LIMIT_Y_BOTTOM) {
+                     posY = LIMIT_Y_BOTTOM;
+                }
+ 
+      
+            }
+
+  
+       }
 
     public void paintShip( Graphics g){
         loaded = loadImage("pixil-frame-0.png");
@@ -53,19 +66,28 @@ public class Player {
                     // Movimento
                     // Cima
                     if (event.getKeyCode() == KeyEvent.VK_W) {
+                        getPosY();
+                        posY = posY - 10;
+                        state = 5;
+                        verticalDirection = 1;
+                        // g.drawImage(loaded, getPosX() , getPosY() , parentComponent);
                         // Colisão
-                        if (posY > LIMIT_Y_TOP) {
-                             state = 5;
-                             verticalDirection = -1;
-                        }
+                        // if (posY > LIMIT_Y_TOP) {
+                        //      state = 5;
+                        //      verticalDirection = -1;
+                        // }
                    }
                    // Baixo
                    if (event.getKeyCode() == KeyEvent.VK_S) {
-                        // Colisão
-                        if (posY < LIMIT_Y_BOTTOM) {
-                             state = 5;
+                    posY = posY + 10;
+                    state = 5;
                              verticalDirection = 1;
-                        }
+                            //  g.drawImage(loaded, getPosX() , getPosY() , parentComponent);
+                        // Colisão
+                        // if (posY < LIMIT_Y_BOTTOM) {
+                        //      state = 5;
+                        //      verticalDirection = 1;
+                        // }
                    }
             }
         };
@@ -75,6 +97,7 @@ public class Player {
    }
 
     public int getPosY() {
+        System.out.println(this.posY);
         return this.posY;
     }
 
