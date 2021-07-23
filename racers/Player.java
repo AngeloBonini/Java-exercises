@@ -34,25 +34,25 @@ public class Player {
 
     }
          // Pintar Estado (Movimento/Ataque)
-         public void paintState(Graphics g) {
-            // Parado
-            if (state == 5) {
-                this.posY-= 10;
-                System.out.println(this.posY);
-                // posY -= verticalDirection * moveY;
+    //      public void paintState(Graphics g) {
+    //         // Parado
+    //         if (state == 5) {
+    //             this.posY-= 10;
+    //             System.out.println(this.posY);
+    //             // posY -= verticalDirection * moveY;
   
-                // Colisão
-                if (posY < LIMIT_Y_TOP) {
-                     posY = LIMIT_Y_TOP;
-                } else if (posY > LIMIT_Y_BOTTOM) {
-                     posY = LIMIT_Y_BOTTOM;
-                }
+    //             // Colisão
+    //             if (posY < LIMIT_Y_TOP) {
+    //                  posY = LIMIT_Y_TOP;
+    //             } else if (posY > LIMIT_Y_BOTTOM) {
+    //                  posY = LIMIT_Y_BOTTOM;
+    //             }
  
       
-            }
+    //         }
 
   
-       }
+    //    }
 
     public void paintShip( Graphics g){
         loaded = loadImage("pixil-frame-0.png");
