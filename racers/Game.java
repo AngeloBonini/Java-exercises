@@ -71,7 +71,28 @@ public class Game extends JFrame {
    public static void main(String[] args) {
     new Game();
 }
-
+public KeyAdapter commands(){
+    return new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent event){
+            
+                if (event.getKeyCode() == KeyEvent.VK_W) {
+                    getPosY();
+                    // posY = posY - 10;
+                    // estado = PARADO = 5;
+                    // verticalDirection = 1;
+           
+               }
+               
+               if (event.getKeyCode() == KeyEvent.VK_S) {
+                // posY = posY + 10;
+                // estado = PARADO = 5;
+                //          verticalDirection = 1;
+                  
+               }
+        }
+    };
+}
 
 public BufferedImage loadImage(String fileName) {
     try {
