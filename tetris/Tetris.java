@@ -81,9 +81,29 @@ public class Tetris extends JPanel {
 	private ArrayList<Integer> nextPieces = new ArrayList<Integer>();
 
 	public long score;
-	private Color[][] well;
+	public Color[][] well;
+	// public int altura;
+	// public int largura;
+	public int dist1;
+	public int dist2;
+
+	// public Tetris(int espaco, int espaco2){
+	// 	// int _altura, int _largura 
+	// 	// altura = _altura; 
+	// 	// largura = _largura;
+
+	// }
 	
-	// Creates a border around the well and initializes the dropping piece
+
+
+	public Tetris(int espaco, int espaco2) {
+		dist1 = espaco;
+		dist2 = espaco2;
+    }
+
+
+
+    // Creates a border around the well and initializes the dropping piece
 	public void init() {
 		well = new Color[12][24];
 		for (int i = 0; i < 12; i++) {
@@ -206,7 +226,7 @@ public class Tetris extends JPanel {
 	}
 	
 	// Draw the falling piece
-	private void drawPiece(Graphics g) {		
+	public void drawPiece(Graphics g) {		
 		g.setColor(tetraminoColors[currentPiece]);
 		for (Point p : Tetraminos[currentPiece][rotation]) {
 			g.fillRect((p.x + pieceOrigin.x) * 26, 
@@ -216,10 +236,10 @@ public class Tetris extends JPanel {
 	}
 	
 	@Override 
-	public void paintComponent(Graphics g)
+	public void paintComponent(  Graphics g)
 	{
 		// Paint the well
-		g.fillRect(0, 0, 26*12, 26*23);
+		g.fillRect(dist1, dist2, 26*12, 26*23);
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 23; j++) {
 				g.setColor(well[i][j]);
@@ -235,56 +255,4 @@ public class Tetris extends JPanel {
 		drawPiece(g);
 	}
 
-	// public static void main(String[] args) {
-	// 	JFrame f = new JFrame("Tetris");
-	// 	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	// 	f.setSize(12*26+10, 26*23+25);
-	// 	f.setVisible(true);
-		
-	// 	final Tetris game = new Tetris();
-	// 	game.init();
-	// 	f.add(game);
-		
-	// 	// Keyboard controls
-	// 	f.addKeyListener(new KeyListener() {
-	// 		public void keyTyped(KeyEvent e) {
-	// 		}
-			
-	// 		public void keyPressed(KeyEvent e) {
-	// 			switch (e.getKeyCode()) {
-	// 			case KeyEvent.VK_UP:
-	// 				game.rotate(-1);
-	// 				break;
-	// 			case KeyEvent.VK_DOWN:
-	// 				game.rotate(+1);
-	// 				break;
-	// 			case KeyEvent.VK_LEFT:
-	// 				game.move(-1);
-	// 				break;
-	// 			case KeyEvent.VK_RIGHT:
-	// 				game.move(+1);
-	// 				break;
-	// 			case KeyEvent.VK_SPACE:
-	// 				game.dropDown();
-	// 				game.score += 1;
-	// 				break;
-	// 			} 
-	// 		}
-			
-	// 		public void keyReleased(KeyEvent e) {
-	// 		}
-	// 	});
-		
-	// 	// Make the falling piece drop every second
-	// 	new Thread() {
-	// 		@Override public void run() {
-	// 			while (true) {
-	// 				try {
-	// 					Thread.sleep(1000);
-	// 					game.dropDown();
-	// 				} catch ( InterruptedException e ) {}
-	// 			}
-	// 		}
-	// 	}.start();
-	// }
 }

@@ -10,18 +10,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main extends JPanel{
+
+
     
     public static void main(String[] args) {
 		JFrame f = new JFrame("Tetris");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(12*26+10, 26*23+25);
+		f.setSize(12*26+500, 52*23+50);
+        // f.setSize(12*26+10, 26*23+25);
 		f.setVisible(true);
 		
-		final Tetris game = new Tetris();
-		game.init();
-		f.add(game);
-		
+		final Tetris jogador1 = new Tetris(0, 0);
+		jogador1.init();
+		f.add(jogador1);
+
+			final Tetris jogador2 = new Tetris(400, 0 );
+		jogador2.init();
+		f.add(jogador2);
 		// Keyboard controls
+
 		f.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {
 			}
@@ -29,20 +36,26 @@ public class Main extends JPanel{
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_UP:
-					game.rotate(-1);
+					jogador1.rotate(-1);
+					jogador2.rotate(-1);
 					break;
 				case KeyEvent.VK_DOWN:
-					game.rotate(+1);
+					jogador1.rotate(+1);
+					jogador2.rotate(+1);
 					break;
 				case KeyEvent.VK_LEFT:
-					game.move(-1);
+					jogador1.move(-1);
+					jogador2.move(-1);
 					break;
 				case KeyEvent.VK_RIGHT:
-					game.move(+1);
+					jogador1.move(+1);
+					jogador2.move(+1);
 					break;
 				case KeyEvent.VK_SPACE:
-					game.dropDown();
-					game.score += 1;
+					jogador1.dropDown();
+					jogador2.dropDown();
+					jogador1.score += 1;
+					jogador2.score += 1;
 					break;
 				} 
 			}
@@ -57,7 +70,8 @@ public class Main extends JPanel{
 				while (true) {
 					try {
 						Thread.sleep(1000);
-						game.dropDown();
+						jogador1.dropDown();
+						jogador2.dropDown();
 					} catch ( InterruptedException e ) {}
 				}
 			}
