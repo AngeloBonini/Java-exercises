@@ -14,7 +14,7 @@ public class Tetris extends JPanel {
 	private static final long serialVersionUID = -8715353373678321308L;
 
 	private final Point[][][] Tetraminos = {
-			// I-Piece
+			// formato I
 			{
 				{ new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(3, 1) },
 				{ new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(1, 3) },
@@ -22,7 +22,7 @@ public class Tetris extends JPanel {
 				{ new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(1, 3) }
 			},
 			
-			// J-Piece
+			// formato J
 			{
 				{ new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(2, 0) },
 				{ new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 2) },
@@ -30,7 +30,7 @@ public class Tetris extends JPanel {
 				{ new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(0, 0) }
 			},
 			
-			// L-Piece
+			// formato L
 			{
 				{ new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(2, 2) },
 				{ new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(0, 2) },
@@ -38,7 +38,7 @@ public class Tetris extends JPanel {
 				{ new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 0) }
 			},
 			
-			// O-Piece
+			// formato O
 			{
 				{ new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1) },
 				{ new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1) },
@@ -46,7 +46,7 @@ public class Tetris extends JPanel {
 				{ new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1) }
 			},
 			
-			// S-Piece
+			// formato S
 			{
 				{ new Point(1, 0), new Point(2, 0), new Point(0, 1), new Point(1, 1) },
 				{ new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 2) },
@@ -54,7 +54,7 @@ public class Tetris extends JPanel {
 				{ new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 2) }
 			},
 			
-			// T-Piece
+			// formato T
 			{
 				{ new Point(1, 0), new Point(0, 1), new Point(1, 1), new Point(2, 1) },
 				{ new Point(1, 0), new Point(0, 1), new Point(1, 1), new Point(1, 2) },
@@ -62,7 +62,7 @@ public class Tetris extends JPanel {
 				{ new Point(1, 0), new Point(1, 1), new Point(2, 1), new Point(1, 2) }
 			},
 			
-			// Z-Piece
+			// formato Z
 			{
 				{ new Point(0, 0), new Point(1, 0), new Point(1, 1), new Point(2, 1) },
 				{ new Point(1, 0), new Point(0, 1), new Point(1, 1), new Point(0, 2) },
@@ -75,16 +75,26 @@ public class Tetris extends JPanel {
 		Color.cyan, Color.blue, Color.orange, Color.yellow, Color.green, Color.pink, Color.red
 	};
 	
-	private Point pieceOrigin;
-	private int currentPiece;
-	private int rotation;
-	private ArrayList<Integer> nextPieces = new ArrayList<Integer>();
+	private Point origemPedaco;
+	private int pedacoAtual;
+	private int rotacao;
+	private ArrayList<Integer> proximosPedacos = new ArrayList<Integer>();
 
-	private long score;
-	private Color[][] well;
-	
-	// Creates a border around the well and initializes the dropping piece
-	private void init() {
+	public long score;
+	public Color[][] well;
+
+	public int dist1;
+	public int dist2;
+
+
+
+	public Tetris(int espaco, int espaco2) {
+		dist1 = espaco;
+		dist2 = espaco2;
+    }
+
+
+	public void inicia() {
 		well = new Color[12][24];
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 23; j++) {
@@ -95,24 +105,23 @@ public class Tetris extends JPanel {
 				}
 			}
 		}
-		newPiece();
+		novoPedaco();
 	}
-	
-	// Put a new, random piece into the dropping position
-	public void newPiece() {
-		pieceOrigin = new Point(5, 2);
-		rotation = 0;
-		if (nextPieces.isEmpty()) {
-			Collections.addAll(nextPieces, 0, 1, 2, 3, 4, 5, 6);
-			Collections.shuffle(nextPieces);
+
+	public void novoPedaco() {
+		origemPedaco = new Point(5, 2);
+		rotacao = 0;
+		if (proximosPedacos.isEmpty()) {
+			Collections.addAll(proximosPedacos, 0, 1, 2, 3, 4, 5, 6);
+			Collections.shuffle(proximosPedacos);
 		}
-		currentPiece = nextPieces.get(0);
-		nextPieces.remove(0);
+		pedacoAtual = proximosPedacos.get(0);
+		proximosPedacos.remove(0);
 	}
 	
-	// Collision test for the dropping piece
-	private boolean collidesAt(int x, int y, int rotation) {
-		for (Point p : Tetraminos[currentPiece][rotation]) {
+
+	private boolean colide(int x, int y, int rotacao) {
+		for (Point p : Tetraminos[pedacoAtual][rotacao]) {
 			if (well[p.x + x][p.y + y] != Color.BLACK) {
 				return true;
 			}
@@ -120,47 +129,42 @@ public class Tetris extends JPanel {
 		return false;
 	}
 	
-	// Rotate the piece clockwise or counterclockwise
-	public void rotate(int i) {
-		int newRotation = (rotation + i) % 4;
-		if (newRotation < 0) {
-			newRotation = 3;
+	public void rotaciona(int i) {
+		int novaRotacao = (rotacao + i) % 4;
+		if (novaRotacao < 0) {
+			novaRotacao = 3;
 		}
-		if (!collidesAt(pieceOrigin.x, pieceOrigin.y, newRotation)) {
-			rotation = newRotation;
+		if (!colide(origemPedaco.x, origemPedaco.y, novaRotacao)) {
+			rotacao = novaRotacao;
 		}
 		repaint();
 	}
 	
-	// Move the piece left or right
 	public void move(int i) {
-		if (!collidesAt(pieceOrigin.x + i, pieceOrigin.y, rotation)) {
-			pieceOrigin.x += i;	
+		if (!colide(origemPedaco.x + i, origemPedaco.y, rotacao)) {
+			origemPedaco.x += i;	
 		}
 		repaint();
 	}
 	
-	// Drops the piece one line or fixes it to the well if it can't drop
-	public void dropDown() {
-		if (!collidesAt(pieceOrigin.x, pieceOrigin.y + 1, rotation)) {
-			pieceOrigin.y += 1;
+	public void cai() {
+		if (!colide(origemPedaco.x, origemPedaco.y + 1, rotacao)) {
+			origemPedaco.y += 1;
 		} else {
-			fixToWell();
+			fronteiraMuro();
 		}	
 		repaint();
 	}
 	
-	// Make the dropping piece part of the well, so it is available for
-	// collision detection.
-	public void fixToWell() {
-		for (Point p : Tetraminos[currentPiece][rotation]) {
-			well[pieceOrigin.x + p.x][pieceOrigin.y + p.y] = tetraminoColors[currentPiece];
+	public void fronteiraMuro() {
+		for (Point p : Tetraminos[pedacoAtual][rotacao]) {
+			well[origemPedaco.x + p.x][origemPedaco.y + p.y] = tetraminoColors[pedacoAtual];
 		}
-		clearRows();
-		newPiece();
+		limpaLinhas();
+		novoPedaco();
 	}
 	
-	public void deleteRow(int row) {
+	public void deletaLinha(int row) {
 		for (int j = row-1; j > 0; j--) {
 			for (int i = 1; i < 11; i++) {
 				well[i][j+1] = well[i][j];
@@ -168,9 +172,7 @@ public class Tetris extends JPanel {
 		}
 	}
 	
-	// Clear completed rows from the field and award score according to
-	// the number of simultaneously cleared rows.
-	public void clearRows() {
+	public void limpaLinhas() {
 		boolean gap;
 		int numClears = 0;
 		
@@ -183,7 +185,7 @@ public class Tetris extends JPanel {
 				}
 			}
 			if (!gap) {
-				deleteRow(j);
+				deletaLinha(j);
 				j += 1;
 				numClears += 1;
 			}
@@ -205,21 +207,19 @@ public class Tetris extends JPanel {
 		}
 	}
 	
-	// Draw the falling piece
-	private void drawPiece(Graphics g) {		
-		g.setColor(tetraminoColors[currentPiece]);
-		for (Point p : Tetraminos[currentPiece][rotation]) {
-			g.fillRect((p.x + pieceOrigin.x) * 26, 
-					   (p.y + pieceOrigin.y) * 26, 
+	public void desenhaPedaco(Graphics g) {		
+		g.setColor(tetraminoColors[pedacoAtual]);
+		for (Point p : Tetraminos[pedacoAtual][rotacao]) {
+			g.fillRect((p.x + origemPedaco.x) * 26, 
+					   (p.y + origemPedaco.y) * 26, 
 					   25, 25);
 		}
 	}
 	
 	@Override 
-	public void paintComponent(Graphics g)
+	public void paintComponent(  Graphics g)
 	{
-		// Paint the well
-		g.fillRect(0, 0, 26*12, 26*23);
+		g.fillRect(dist1, dist2, 26*12, 26*23);
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 23; j++) {
 				g.setColor(well[i][j]);
@@ -227,64 +227,10 @@ public class Tetris extends JPanel {
 			}
 		}
 		
-		// Display the score
 		g.setColor(Color.WHITE);
 		g.drawString("" + score, 19*12, 25);
 		
-		// Draw the currently falling piece
-		drawPiece(g);
+		desenhaPedaco(g);
 	}
 
-	public static void main(String[] args) {
-		JFrame f = new JFrame("Tetris");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(12*26+10, 26*23+25);
-		f.setVisible(true);
-		
-		final Tetris game = new Tetris();
-		game.init();
-		f.add(game);
-		
-		// Keyboard controls
-		f.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-			}
-			
-			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_UP:
-					game.rotate(-1);
-					break;
-				case KeyEvent.VK_DOWN:
-					game.rotate(+1);
-					break;
-				case KeyEvent.VK_LEFT:
-					game.move(-1);
-					break;
-				case KeyEvent.VK_RIGHT:
-					game.move(+1);
-					break;
-				case KeyEvent.VK_SPACE:
-					game.dropDown();
-					game.score += 1;
-					break;
-				} 
-			}
-			
-			public void keyReleased(KeyEvent e) {
-			}
-		});
-		
-		// Make the falling piece drop every second
-		new Thread() {
-			@Override public void run() {
-				while (true) {
-					try {
-						Thread.sleep(1000);
-						game.dropDown();
-					} catch ( InterruptedException e ) {}
-				}
-			}
-		}.start();
-	}
 }
