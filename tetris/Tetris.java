@@ -80,11 +80,11 @@ public class Tetris extends JPanel {
 	private int rotation;
 	private ArrayList<Integer> nextPieces = new ArrayList<Integer>();
 
-	private long score;
+	public long score;
 	private Color[][] well;
 	
 	// Creates a border around the well and initializes the dropping piece
-	private void init() {
+	public void init() {
 		well = new Color[12][24];
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 23; j++) {
@@ -235,56 +235,56 @@ public class Tetris extends JPanel {
 		drawPiece(g);
 	}
 
-	public static void main(String[] args) {
-		JFrame f = new JFrame("Tetris");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(12*26+10, 26*23+25);
-		f.setVisible(true);
+	// public static void main(String[] args) {
+	// 	JFrame f = new JFrame("Tetris");
+	// 	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	// 	f.setSize(12*26+10, 26*23+25);
+	// 	f.setVisible(true);
 		
-		final Tetris game = new Tetris();
-		game.init();
-		f.add(game);
+	// 	final Tetris game = new Tetris();
+	// 	game.init();
+	// 	f.add(game);
 		
-		// Keyboard controls
-		f.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-			}
+	// 	// Keyboard controls
+	// 	f.addKeyListener(new KeyListener() {
+	// 		public void keyTyped(KeyEvent e) {
+	// 		}
 			
-			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_UP:
-					game.rotate(-1);
-					break;
-				case KeyEvent.VK_DOWN:
-					game.rotate(+1);
-					break;
-				case KeyEvent.VK_LEFT:
-					game.move(-1);
-					break;
-				case KeyEvent.VK_RIGHT:
-					game.move(+1);
-					break;
-				case KeyEvent.VK_SPACE:
-					game.dropDown();
-					game.score += 1;
-					break;
-				} 
-			}
+	// 		public void keyPressed(KeyEvent e) {
+	// 			switch (e.getKeyCode()) {
+	// 			case KeyEvent.VK_UP:
+	// 				game.rotate(-1);
+	// 				break;
+	// 			case KeyEvent.VK_DOWN:
+	// 				game.rotate(+1);
+	// 				break;
+	// 			case KeyEvent.VK_LEFT:
+	// 				game.move(-1);
+	// 				break;
+	// 			case KeyEvent.VK_RIGHT:
+	// 				game.move(+1);
+	// 				break;
+	// 			case KeyEvent.VK_SPACE:
+	// 				game.dropDown();
+	// 				game.score += 1;
+	// 				break;
+	// 			} 
+	// 		}
 			
-			public void keyReleased(KeyEvent e) {
-			}
-		});
+	// 		public void keyReleased(KeyEvent e) {
+	// 		}
+	// 	});
 		
-		// Make the falling piece drop every second
-		new Thread() {
-			@Override public void run() {
-				while (true) {
-					try {
-						Thread.sleep(1000);
-						game.dropDown();
-					} catch ( InterruptedException e ) {}
-				}
-			}
-		}.start();
-	}
+	// 	// Make the falling piece drop every second
+	// 	new Thread() {
+	// 		@Override public void run() {
+	// 			while (true) {
+	// 				try {
+	// 					Thread.sleep(1000);
+	// 					game.dropDown();
+	// 				} catch ( InterruptedException e ) {}
+	// 			}
+	// 		}
+	// 	}.start();
+	// }
 }
