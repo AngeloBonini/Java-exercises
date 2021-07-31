@@ -1,1 +1,0 @@
-@java -classpath %CLASSPATH%;hsql.jar org.hsql.Server %1 %2 %3 %4 %5 %6 %7 %8 %9
