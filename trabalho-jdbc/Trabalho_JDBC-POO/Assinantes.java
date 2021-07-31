@@ -34,7 +34,7 @@ public class Assinantes extends Janela {
         for (int i = 0; i < 4; i++) Campos[i] = new JPanel();
 
         Campos[0].setLayout(new GridLayout(5, 2));
-        Campos[0].add(new JLabel("Cadastrar funcionario"));
+        Campos[0].add(new JLabel("Cadastrar assinante"));
         BInserir = new JButton("Cadastrar");
         BInserir.addActionListener(new Insere());
         Campos[0].add(BInserir);
