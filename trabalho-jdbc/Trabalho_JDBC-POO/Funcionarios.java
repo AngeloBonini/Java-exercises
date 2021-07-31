@@ -17,17 +17,17 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class Funcionarios extends Janela {
+public class Assinantes extends Janela {
     JPanel Campos[] = new JPanel[4];
     JTable Tabela;
-    JTextArea InsNome, InsCargo, InsSalario, InsDescricao, AltID, AltCargo, AltNome, AltSalario, AltDescricao, ExcID;
+    JTextArea InsNome, InsCartao, InsEndereco, InsPlano, AltID, AltCartao, AltNome, AlteraEndereco, AltPlano, ExcID;
     JButton BInserir, BAlterar, BExcluir;
     
-    Funcionarios() {
-        super("Funcionarios");
-        CriaBancoDados("BD-Func");
+    Assinantes() {
+        super("Assinantes");
+        CriaBancoDados("BD-Assinantes");
         try {
-            Afirmacao.executeUpdate("CREATE TABLE FUNCIONARIOS (CARGO VARCHAR(25), NOME VARCHAR(50), SALARIO FLOAT, DESCRICAO VARCHAR(100))");
+            Afirmacao.executeUpdate("CREATE TABLE ASSINANTES ( NOME VARCHAR(50), ENDERECO VARCHAR(25),  CARTAO VARCHAR(25), PLANO VARCHAR(50))");
         } catch (SQLException excecao) {}
         Border borda = BorderFactory.createLineBorder(Color.black);
 
@@ -38,60 +38,60 @@ public class Funcionarios extends Janela {
         BInserir = new JButton("Cadastrar");
         BInserir.addActionListener(new Insere());
         Campos[0].add(BInserir);
-        Campos[0].add(new JLabel("Cargo"));
-        InsCargo = new JTextArea();
-        InsCargo.setBorder(borda);
-        Campos[0].add(InsCargo);
+        Campos[0].add(new JLabel("Cartao"));
+        InsCartao = new JTextArea();
+        InsCartao.setBorder(borda);
+        Campos[0].add(InsCartao);
         Campos[0].add(new JLabel("Nome"));
         InsNome = new JTextArea();
         InsNome.setBorder(borda);
         Campos[0].add(InsNome);
-        Campos[0].add(new JLabel("Salario"));
-        InsSalario = new JTextArea();
-        InsSalario.setBorder(borda);
-        Campos[0].add(InsSalario);
-        Campos[0].add(new JLabel("Descricao"));
-        InsDescricao = new JTextArea();
-        InsDescricao.setBorder(borda);
-        Campos[0].add(InsDescricao);
+        Campos[0].add(new JLabel("Endereco"));
+        InsEndereco = new JTextArea();
+        InsEndereco.setBorder(borda);
+        Campos[0].add(InsEndereco);
+        Campos[0].add(new JLabel("Plano de asssinatura"));
+        InsPlano = new JTextArea();
+        InsPlano.setBorder(borda);
+        Campos[0].add(InsPlano);
 
         Campos[1].setLayout(new GridLayout(6, 2));
         Campos[1].add(new JLabel("Alterar cadastro"));
         BAlterar = new JButton("Alterar");
         BAlterar.addActionListener(new Altera());
         Campos[1].add(BAlterar);
-        Campos[1].add(new JLabel("Nome do funcionario cujo cadastro sera alterado"));
+        Campos[1].add(new JLabel("Nome do assinante para alteracao do cadastro "));
         AltID = new JTextArea();
         AltID.setBorder(borda);
         Campos[1].add(AltID);
-        Campos[1].add(new JLabel("Novo cargo"));
-        AltCargo = new JTextArea();
-        AltCargo.setBorder(borda);
-        Campos[1].add(AltCargo);
+        Campos[1].add(new JLabel("Novo Cartao"));
+        AltCartao = new JTextArea();
+        AltCartao.setBorder(borda);
+        Campos[1].add(AltCartao);
         Campos[1].add(new JLabel("Novo nome"));
         AltNome = new JTextArea();
         AltNome.setBorder(borda);
         Campos[1].add(AltNome);
-        Campos[1].add(new JLabel("Novo salario"));
-        AltSalario = new JTextArea();
-        AltSalario.setBorder(borda);
-        Campos[1].add(AltSalario);
-        Campos[1].add(new JLabel("Nova descricao"));
-        AltDescricao = new JTextArea();
-        AltDescricao.setBorder(borda);
-        Campos[1].add(AltDescricao);
+        Campos[1].add(new JLabel("Novo endereco"));
+        AlteraEndereco = new JTextArea();
+        AlteraEndereco.setBorder(borda);
+        Campos[1].add(AlteraEndereco);
+        Campos[1].add(new JLabel("Novo Plano de assinatura"));
+        AltPlano = new JTextArea();
+        AltPlano.setBorder(borda);
+        Campos[1].add(AltPlano);
 
         Campos[2].setLayout(new GridLayout(2, 2));
         Campos[2].add(new JLabel("Excluir cadastro"));
         BExcluir = new JButton("Excluir");
         BExcluir.addActionListener(new Exclui());
         Campos[2].add(BExcluir);
-        Campos[2].add(new JLabel("Nome do funcionario cujo cadastro sera excluido"));
+        Campos[2].add(new JLabel("Nome do assinante para exclusao"));
         ExcID = new JTextArea();
         ExcID.setBorder(borda);
         Campos[2].add(ExcID);
 
-        Tabela = new JTable(new Object[1][5], new String[] {"ID", "Cargo", "Nome", "Salario", "Descricao"});
+        Tabela = new JTable(new Object[1][5], new String[] {"ID", "cartao", "Nome", "Endereco", "Plano de assinatura"});
         Campos[3].setLayout(new GridLayout(2, 1));
         Campos[3].add(Tabela.getTableHeader());
         Campos[3].add(Tabela);
@@ -102,15 +102,15 @@ public class Funcionarios extends Janela {
     }
 
     public void AtualizaJanela() {
-        DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Cargo", "Nome", "Salario", "Descricao"}, 0);
+        DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Cartao", "Nome", "Endereco", "Plano de assinatura"}, 0);
         try {
-            ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM FUNCIONARIOS");
+            ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM ASSINANTES");
             while (Dados.next()) {
-                String Cargo = Dados.getString("CARGO");
+                String Cartao = Dados.getString("CARTAO");
                 String Nome = Dados.getString("NOME");
-                float Salario = Dados.getFloat("SALARIO");
-                String Descricao = Dados.getString("DESCRICAO");
-                Modelo.addRow(new Object[] {Cargo, Nome, Salario, Descricao});
+                float Endereco = Dados.getFloat("ENDERECO");
+                String Plano = Dados.getString("PLANO");
+                Modelo.addRow(new Object[] {Cartao, Nome, Endereco, Plano});
                 Dados.next();
             }
         } catch (SQLException erro) {
@@ -123,15 +123,15 @@ public class Funcionarios extends Janela {
     class Insere implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
             String Nome = InsNome.getText();
-            String Cargo = InsCargo.getText();
-            String salario = InsSalario.getText();
-            String Descricao = InsDescricao.getText();
-            if (Cargo.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um cargo.");
+            String Cartao = InsCartao.getText();
+            String Endereco = InsEndereco.getText();
+            String Plano = InsPlano.getText();
+            if (Cartao.isEmpty()) {
+                JOptionPane.showMessageDialog(null,"Insira o numero do cartao.");
                 return;
             }
-            if (Cargo.length() > 25) {
-                JOptionPane.showMessageDialog(null,"Insira um cargo com menos de 25 caracteres.");
+            if (Cartao.length() > 25) {
+                JOptionPane.showMessageDialog(null,"Insira um numero com menos de 25 caracteres.");
                 return;
             }
             if (Nome.isEmpty()) {
@@ -142,27 +142,21 @@ public class Funcionarios extends Janela {
                 JOptionPane.showMessageDialog(null,"Insira um nome com menos de 50 caracteres.");
                 return;
             }
-            if (salario.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um salario.");
+            if (Endereco.isEmpty()) {
+                JOptionPane.showMessageDialog(null,"Insira um Endereco.");
                 return;
             }
-            float Salario;
-            try {
-                Salario = Float.parseFloat(salario);
-            } catch (NumberFormatException erro) {
-                JOptionPane.showMessageDialog(null,"Insira um numero real como salario.");
-                return;
-            }
-            if (Descricao.isEmpty()) {
+     
+            if (Plano.isEmpty()) {
                 JOptionPane.showMessageDialog(null,"Insira uma descricao.");
                 return;
             }
-            if (Descricao.length() > 100) {
+            if (Plano.length() > 100) {
                 JOptionPane.showMessageDialog(null,"Insira uma descricao com menos de 100 caracteres.");
                 return;
             }
             try {
-                Afirmacao.executeUpdate("INSERT INTO FUNCIONARIOS VALUES('"+ Cargo +"', '"+ Nome +"', "+ Salario +", '"+ Descricao +"')");
+                Afirmacao.executeUpdate("INSERT INTO FUNCIONARIOS VALUES('"+ Cartao +"', '"+ Nome +"', "+ Endereco +", '"+ Plano +"')");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -173,10 +167,10 @@ public class Funcionarios extends Janela {
     class Altera implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
             String NomeEspecificado = AltID.getText();
-            String Cargo = AltCargo.getText();
+            String Cartao = AltCartao.getText();
             String Nome = AltNome.getText();
-            String salario = AltSalario.getText();
-            String Descricao = AltDescricao.getText();
+            String Endereco = AlteraEndereco.getText();
+            String Plano = AltPlano.getText();
             if (NomeEspecificado.isEmpty()) {
                 JOptionPane.showMessageDialog(null,"Insira um nome como especificacao.");
                 return;
@@ -185,11 +179,11 @@ public class Funcionarios extends Janela {
                 JOptionPane.showMessageDialog(null,"Insira um nome com 50 caracteres ou menos como especificacao.");
                 return;
             }
-            if (Cargo.isEmpty()) {
+            if (Cartao.isEmpty()) {
                 JOptionPane.showMessageDialog(null,"Insira um cargo.");
                 return;
             }
-            if (Cargo.length() > 25) {
+            if (Cartao.length() > 25) {
                 JOptionPane.showMessageDialog(null,"Insira um cargo com menos de 25 caracteres.");
                 return;
             }
@@ -201,27 +195,21 @@ public class Funcionarios extends Janela {
                 JOptionPane.showMessageDialog(null,"Insira um nome com menos de 50 caracteres.");
                 return;
             }
-            if (salario.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um salario.");
+            if (Endereco.isEmpty()) {
+                JOptionPane.showMessageDialog(null,"Insira um Endereco.");
                 return;
             }
-            float Salario;
-            try {
-                Salario = Float.parseFloat(salario);
-            } catch (NumberFormatException erro) {
-                JOptionPane.showMessageDialog(null,"Insira um numero real como salario.");
+      
+            if (Plano.isEmpty()) {
+                JOptionPane.showMessageDialog(null,"Insira um plano de assinatura.");
                 return;
             }
-            if (Descricao.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira uma descricao.");
-                return;
-            }
-            if (Descricao.length() > 100) {
+            if (Plano.length() > 100) {
                 JOptionPane.showMessageDialog(null,"Insira uma descricao com menos de 100 caracteres.");
                 return;
             }
             try {
-                Afirmacao.executeUpdate("UPDATE FUNCIONARIOS SET CARGO='"+ Cargo +"', NOME='"+ Nome +"', SALARIO="+ Salario +", DESCRICAO='"+ Descricao +"' WHERE NOME='"+ NomeEspecificado +"'");
+                Afirmacao.executeUpdate("UPDATE ASSINANTES SET CARTAO='"+ Cartao +"', NOME='"+ Nome +"', ENDERCO="+ Endereco +", PLANO='"+ Plano +"' WHERE NOME='"+ NomeEspecificado +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -241,7 +229,7 @@ public class Funcionarios extends Janela {
                 return;
             }
             try {
-                Afirmacao.executeUpdate("DELETE FROM FUNCIONARIOS WHERE NOME='"+ Nome +"'");
+                Afirmacao.executeUpdate("DELETE FROM ASSINANTES WHERE NOME='"+ Nome +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);

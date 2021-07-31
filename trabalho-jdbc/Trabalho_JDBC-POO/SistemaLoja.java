@@ -3,12 +3,12 @@
 public class SistemaLoja {
     Pedidos tpedidos;
     Inventario tinventario;
-    Funcionarios tfuncionarios;
+    Assinantes tassinantes;
 
     SistemaLoja() {
         tpedidos = new Pedidos();
         tinventario = new Inventario();
-        tfuncionarios = new Funcionarios();
+        tassinantes = new Assinantes();
     }
 
     public static void main(String[] args) {
