@@ -1,5 +1,4 @@
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -7,7 +6,6 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane;
 
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -19,151 +17,160 @@ import java.sql.ResultSet;
 
 public class Assinantes extends WindowDatabase {
     JPanel FormFields[] = new JPanel[4];
-    JTable Tabela;
-    JTextArea InsNome, InsCartao, InsEndereco, InsPlano, AltID, AltCartao, AltNome, AlteraEndereco, AltPlano, ExcID;
-    JButton BInserir, BAlterar, BExcluir;
-    
+    JTable TabelaAssinantes;
+    JTextArea CreateName, CreateCreditCard, CreateAddress, CreateSignaturePlain, UpdatableName, UpdatateCreditCard,
+            UpdateName, UpdateAddress, UpdateSignaturePlain, DeletableName;
+    JButton CreateBtn, UpdateBtn, DeleteBtn;
+
     Assinantes() {
         super("Assinantes");
         CreateDataBank("BD-Assinantes");
         try {
-            SQLStatement.executeUpdate("CREATE TABLE ASSINANTES ( NOME VARCHAR(50), ENDERECO VARCHAR(25),  CARTAO VARCHAR(25), PLANO VARCHAR(50))");
-        } catch (SQLException excecao) {}
-        Border borda = BorderFactory.createLineBorder(Color.black);
+            SQLStatement.executeUpdate(
+                    "CREATE TABLE ASSINANTES ( NOME VARCHAR(50), ENDERECO VARCHAR(25),  CARTAO VARCHAR(25), PLANO VARCHAR(50))");
+        } catch (SQLException excecao) {
+        }
+        Border borderBox = BorderFactory.createLineBorder(Color.green);
 
-        for (int i = 0; i < 4; i++) FormFields[i] = new JPanel();
+        for (int i = 0; i < 4; i++)
+            FormFields[i] = new JPanel();
 
         FormFields[0].setLayout(new GridLayout(5, 2));
         FormFields[0].add(new JLabel("Cadastrar assinante"));
-        BInserir = new JButton("Cadastrar");
-        BInserir.addActionListener(new Insere());
-        FormFields[0].add(BInserir);
+        CreateBtn = new JButton("Cadastrar");
+        CreateBtn.addActionListener(new CreateNew());
+        FormFields[0].add(CreateBtn);
         FormFields[0].add(new JLabel("Cartao"));
-        InsCartao = new JTextArea();
-        InsCartao.setBorder(borda);
-        FormFields[0].add(InsCartao);
+        CreateCreditCard = new JTextArea();
+        CreateCreditCard.setBorder(borderBox);
+        FormFields[0].add(CreateCreditCard);
         FormFields[0].add(new JLabel("Nome"));
-        InsNome = new JTextArea();
-        InsNome.setBorder(borda);
-        FormFields[0].add(InsNome);
+        CreateName = new JTextArea();
+        CreateName.setBorder(borderBox);
+        FormFields[0].add(CreateName);
         FormFields[0].add(new JLabel("Endereco"));
-        InsEndereco = new JTextArea();
-        InsEndereco.setBorder(borda);
-        FormFields[0].add(InsEndereco);
+        CreateAddress = new JTextArea();
+        CreateAddress.setBorder(borderBox);
+        FormFields[0].add(CreateAddress);
         FormFields[0].add(new JLabel("Plano de asssinatura"));
-        InsPlano = new JTextArea();
-        InsPlano.setBorder(borda);
-        FormFields[0].add(InsPlano);
+        CreateSignaturePlain = new JTextArea();
+        CreateSignaturePlain.setBorder(borderBox);
+        FormFields[0].add(CreateSignaturePlain);
 
         FormFields[1].setLayout(new GridLayout(6, 2));
-        FormFields[1].add(new JLabel("Alterar cadastro"));
-        BAlterar = new JButton("Alterar");
-        BAlterar.addActionListener(new Altera());
-        FormFields[1].add(BAlterar);
-        FormFields[1].add(new JLabel("Nome do assinante para alteracao do cadastro "));
-        AltID = new JTextArea();
-        AltID.setBorder(borda);
-        FormFields[1].add(AltID);
+        FormFields[1].add(new JLabel("Alterar Dados do Assinante"));
+        UpdateBtn = new JButton("Alterar");
+        UpdateBtn.addActionListener(new UpdateFields());
+        FormFields[1].add(UpdateBtn);
+        FormFields[1].add(new JLabel("Nome  para alteracao"));
+        UpdatableName = new JTextArea();
+        UpdatableName.setBorder(borderBox);
+        FormFields[1].add(UpdatableName);
         FormFields[1].add(new JLabel("Novo Cartao"));
-        AltCartao = new JTextArea();
-        AltCartao.setBorder(borda);
-        FormFields[1].add(AltCartao);
+        UpdatateCreditCard = new JTextArea();
+        UpdatateCreditCard.setBorder(borderBox);
+        FormFields[1].add(UpdatateCreditCard);
         FormFields[1].add(new JLabel("Novo nome"));
-        AltNome = new JTextArea();
-        AltNome.setBorder(borda);
-        FormFields[1].add(AltNome);
+        UpdateName = new JTextArea();
+        UpdateName.setBorder(borderBox);
+        FormFields[1].add(UpdateName);
         FormFields[1].add(new JLabel("Novo endereco"));
-        AlteraEndereco = new JTextArea();
-        AlteraEndereco.setBorder(borda);
-        FormFields[1].add(AlteraEndereco);
+        UpdateAddress = new JTextArea();
+        UpdateAddress.setBorder(borderBox);
+        FormFields[1].add(UpdateAddress);
         FormFields[1].add(new JLabel("Novo Plano de assinatura"));
-        AltPlano = new JTextArea();
-        AltPlano.setBorder(borda);
-        FormFields[1].add(AltPlano);
+        UpdateSignaturePlain = new JTextArea();
+        UpdateSignaturePlain.setBorder(borderBox);
+        FormFields[1].add(UpdateSignaturePlain);
 
         FormFields[2].setLayout(new GridLayout(2, 2));
-        FormFields[2].add(new JLabel("Excluir cadastro"));
-        BExcluir = new JButton("Excluir");
-        BExcluir.addActionListener(new Exclui());
-        FormFields[2].add(BExcluir);
-        FormFields[2].add(new JLabel("Nome do assinante para exclusao"));
-        ExcID = new JTextArea();
-        ExcID.setBorder(borda);
-        FormFields[2].add(ExcID);
+        DeleteBtn = new JButton("Excluir (digite o nome)");
+        DeleteBtn.addActionListener(new DeleteData());
+        FormFields[2].add(DeleteBtn);
+        DeletableName = new JTextArea();
+        DeletableName.setBorder(borderBox);
+        FormFields[2].add(DeletableName);
 
-        Tabela = new JTable(new Object[1][5], new String[] {"ID", "cartao", "Nome", "Endereco", "Plano de assinatura"});
+        TabelaAssinantes = new JTable(new Object[1][5],
+                new String[] { "ID", "cartao", "Nome", "Endereco", "Plano de assinatura" });
         FormFields[3].setLayout(new GridLayout(2, 1));
-        FormFields[3].add(Tabela.getTableHeader());
-        FormFields[3].add(Tabela);
+        FormFields[3].add(TabelaAssinantes.getTableHeader());
+        FormFields[3].add(TabelaAssinantes);
 
-        for (int i = 0; i < 4; i++) FormFields[i].setBorder(borda);
-        AtualizaJanela();
-        CriaJanela(FormFields);
+        for (int i = 0; i < 4; i++)
+            FormFields[i].setBorder(borderBox);
+        Update();
+        CreateUserInterface(FormFields);
     }
 
-    public void AtualizaJanela() {
-        DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Cartao", "Nome", "Endereco", "Plano de assinatura"}, 0);
+    public void Update() {
+        DefaultTableModel SignatureModel = new DefaultTableModel(
+                new Object[] { "Cartao", "Nome", "Endereco", "Plano de assinatura" }, 0);
         try {
-            ResultSet Dados = SQLStatement.executeQuery("SELECT * FROM ASSINANTES");
-            while (Dados.next()) {
-                String Cartao = Dados.getString("CARTAO");
-                String Nome = Dados.getString("NOME");
-                String Endereco = Dados.getString("ENDERECO");
-                String Plano = Dados.getString("PLANO");
-                Modelo.addRow(new Object[] {Cartao, Nome, Endereco, Plano});
-                Dados.next();
+            ResultSet SQLResult = SQLStatement.executeQuery("SELECT * FROM ASSINANTES");
+            while (SQLResult.next()) {
+                String Cartao = SQLResult.getString("CARTAO");
+                String Nome = SQLResult.getString("NOME");
+                String Endereco = SQLResult.getString("ENDERECO");
+                String Plano = SQLResult.getString("PLANO");
+                SignatureModel.addRow(new Object[] { Cartao, Nome, Endereco, Plano });
+                SQLResult.next();
             }
         } catch (SQLException erro) {
             erro.printStackTrace();
             System.exit(1);
         }
-        Tabela.setModel(Modelo);
+        TabelaAssinantes.setModel(SignatureModel);
     }
 
-    class Insere implements ActionListener {
+    class UpdateFields implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
-            String Nome = InsNome.getText();
-            String Cartao = InsCartao.getText();
-            String Endereco = InsEndereco.getText();
-            String Plano = InsPlano.getText();
-         
+            String NomeEspecificado = UpdatableName.getText();
+            String Cartao = UpdatateCreditCard.getText();
+            String Nome = UpdateName.getText();
+            String Endereco = UpdateAddress.getText();
+            String Plano = UpdateSignaturePlain.getText();
+
             try {
-                SQLStatement.executeUpdate("INSERT INTO ASSINANTES VALUES('"+ Cartao +"', '"+ Nome +"', '"+ Endereco +"', '"+ Plano +"')");
-            } catch(SQLException erro) {
+                SQLStatement.executeUpdate("UPDATE ASSINANTES SET CARTAO='" + Cartao + "', NOME='" + Nome
+                        + "', ENDERCO='" + Endereco + "', PLANO='" + Plano + "' WHERE NOME='" + NomeEspecificado + "'");
+            } catch (SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
-    class Altera implements ActionListener {
+
+    class CreateNew implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
-            String NomeEspecificado = AltID.getText();
-            String Cartao = AltCartao.getText();
-            String Nome = AltNome.getText();
-            String Endereco = AlteraEndereco.getText();
-            String Plano = AltPlano.getText();
-        
+            String Nome = CreateName.getText();
+            String Cartao = CreateCreditCard.getText();
+            String Endereco = CreateAddress.getText();
+            String Plano = CreateSignaturePlain.getText();
+
             try {
-                SQLStatement.executeUpdate("UPDATE ASSINANTES SET CARTAO='"+ Cartao +"', NOME='"+ Nome +"', ENDERCO='"+ Endereco +"', PLANO='"+ Plano +"' WHERE NOME='"+ NomeEspecificado +"'");
-            } catch(SQLException erro) {
+                SQLStatement.executeUpdate("INSERT INTO ASSINANTES VALUES('" + Cartao + "', '" + Nome + "', '"
+                        + Endereco + "', '" + Plano + "')");
+            } catch (SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
-    class Exclui implements ActionListener {
+
+    class DeleteData implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
-            String Nome = ExcID.getText();
-        
+            String Nome = DeletableName.getText();
+
             try {
-                SQLStatement.executeUpdate("DELETE FROM ASSINANTES WHERE NOME='"+ Nome +"'");
-            } catch(SQLException erro) {
+                SQLStatement.executeUpdate("DELETE FROM ASSINANTES WHERE NOME='" + Nome + "'");
+            } catch (SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
 }

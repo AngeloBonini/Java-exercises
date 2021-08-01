@@ -1,5 +1,4 @@
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -7,7 +6,6 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane;
 
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -19,10 +17,10 @@ import java.sql.ResultSet;
 
 public class Filmes extends WindowDatabase {
     JPanel FormFields[] = new JPanel[4];
-    JTable Tabela;
-    JTextArea InsNome, InsElenco, InsIndicacao, InsGenero, InsSinopse, AltID, AltNome, AltElenco, AltIndicacao,
-            AltGenero, AltSinopse, ExcID;
-    JButton BInserir, BAlterar, BExcluir;
+    JTable MoviesTable;
+    JTextArea CreateName, CreateCast, CreateParentalRating, CreateMovieGenre, CreateSynopsis, UpdatableName, UpdateName, UpdateCast, UpdateParentalRating,
+            UpdateMovieGenre, UpdateSynopsis, DeletableName;
+    JButton CreateBtn, UpdateBtn, DeleteBtn;
 
     Filmes() {
         super("Filmes");
@@ -33,116 +31,114 @@ public class Filmes extends WindowDatabase {
         } catch (SQLException excecao) {
         }
 
-        Border borda = BorderFactory.createLineBorder(Color.black);
+        Border borderBox = BorderFactory.createLineBorder(Color.blue);
 
         for (int i = 0; i < 4; i++)
             FormFields[i] = new JPanel();
 
         FormFields[0].setLayout(new GridLayout(6, 2));
         FormFields[0].add(new JLabel("Cadastrar filme"));
-        BInserir = new JButton("Cadastrar");
-        BInserir.addActionListener(new Insere());
-        FormFields[0].add(BInserir);
+        CreateBtn = new JButton("Cadastrar");
+        CreateBtn.addActionListener(new CreateNew());
+        FormFields[0].add(CreateBtn);
         FormFields[0].add(new JLabel("Nome"));
-        InsNome = new JTextArea();
-        InsNome.setBorder(borda);
-        FormFields[0].add(InsNome);
+        CreateName = new JTextArea();
+        CreateName.setBorder(borderBox);
+        FormFields[0].add(CreateName);
         FormFields[0].add(new JLabel("Elenco"));
-        InsElenco = new JTextArea();
-        InsElenco.setBorder(borda);
-        FormFields[0].add(InsElenco);
+        CreateCast = new JTextArea();
+        CreateCast.setBorder(borderBox);
+        FormFields[0].add(CreateCast);
         FormFields[0].add(new JLabel("Cassificação Indicativa"));
-        InsIndicacao = new JTextArea();
-        InsIndicacao.setBorder(borda);
-        FormFields[0].add(InsIndicacao);
+        CreateParentalRating = new JTextArea();
+        CreateParentalRating.setBorder(borderBox);
+        FormFields[0].add(CreateParentalRating);
         FormFields[0].add(new JLabel("Genero"));
-        InsGenero = new JTextArea();
-        InsGenero.setBorder(borda);
-        FormFields[0].add(InsGenero);
+        CreateMovieGenre = new JTextArea();
+        CreateMovieGenre.setBorder(borderBox);
+        FormFields[0].add(CreateMovieGenre);
         FormFields[0].add(new JLabel("Sinopse"));
-        InsSinopse = new JTextArea();
-        InsSinopse.setBorder(borda);
-        FormFields[0].add(InsSinopse);
+        CreateSynopsis = new JTextArea();
+        CreateSynopsis.setBorder(borderBox);
+        FormFields[0].add(CreateSynopsis);
 
         FormFields[1].setLayout(new GridLayout(7, 2));
         FormFields[1].add(new JLabel("Alterar filme"));
-        BAlterar = new JButton("Alterar");
-        BAlterar.addActionListener(new Altera());
-        FormFields[1].add(BAlterar);
+        UpdateBtn = new JButton("Alterar");
+        UpdateBtn.addActionListener(new UpdateFields());
+        FormFields[1].add(UpdateBtn);
         FormFields[1].add(new JLabel("Nome do filme para alterar"));
-        AltID = new JTextArea();
-        AltID.setBorder(borda);
-        FormFields[1].add(AltID);
+        UpdatableName = new JTextArea();
+        UpdatableName.setBorder(borderBox);
+        FormFields[1].add(UpdatableName);
         FormFields[1].add(new JLabel("Nome"));
-        AltNome = new JTextArea();
-        AltNome.setBorder(borda);
-        FormFields[1].add(AltNome);
+        UpdateName = new JTextArea();
+        UpdateName.setBorder(borderBox);
+        FormFields[1].add(UpdateName);
         FormFields[1].add(new JLabel("Elenco"));
-        AltElenco = new JTextArea();
-        AltElenco.setBorder(borda);
-        FormFields[1].add(AltElenco);
+        UpdateCast = new JTextArea();
+        UpdateCast.setBorder(borderBox);
+        FormFields[1].add(UpdateCast);
         FormFields[1].add(new JLabel("Classificaçao Indicativa"));
-        AltIndicacao = new JTextArea();
-        AltIndicacao.setBorder(borda);
-        FormFields[1].add(AltIndicacao);
+        UpdateParentalRating = new JTextArea();
+        UpdateParentalRating.setBorder(borderBox);
+        FormFields[1].add(UpdateParentalRating);
         FormFields[1].add(new JLabel("Genero"));
-        AltGenero = new JTextArea();
-        AltGenero.setBorder(borda);
-        FormFields[1].add(AltGenero);
+        UpdateMovieGenre = new JTextArea();
+        UpdateMovieGenre.setBorder(borderBox);
+        FormFields[1].add(UpdateMovieGenre);
         FormFields[1].add(new JLabel("Sinopse"));
-        AltSinopse = new JTextArea();
-        AltSinopse.setBorder(borda);
-        FormFields[1].add(AltSinopse);
+        UpdateSynopsis = new JTextArea();
+        UpdateSynopsis.setBorder(borderBox);
+        FormFields[1].add(UpdateSynopsis);
 
         FormFields[2].setLayout(new GridLayout(2, 2));
-        FormFields[2].add(new JLabel("Excluir filme"));
-        BExcluir = new JButton("Excluir");
-        BExcluir.addActionListener(new Exclui());
-        FormFields[2].add(BExcluir);
-        FormFields[2].add(new JLabel("Nome do filme a ser apagado"));
-        ExcID = new JTextArea();
-        ExcID.setBorder(borda);
-        FormFields[2].add(ExcID);
+        DeleteBtn = new JButton("Excluir (digite o nome)");
+        DeleteBtn.addActionListener(new DeleteData());
+        FormFields[2].add(DeleteBtn);
+        DeletableName = new JTextArea();
+        DeletableName.setBorder(borderBox);
+        FormFields[2].add(DeletableName);
 
-        Tabela = new JTable(new Object[1][6], new String[] { "Nome", "Elenco", "Indicacao", "Genero", "Sinopse" });
+        MoviesTable = new JTable(new Object[1][6], new String[] { "Nome", "Elenco", "Indicacao", "Genero", "Sinopse" });
         FormFields[3].setLayout(new GridLayout(2, 1));
-        FormFields[3].add(Tabela.getTableHeader());
-        FormFields[3].add(Tabela);
+        FormFields[3].add(MoviesTable.getTableHeader());
+        FormFields[3].add(MoviesTable);
 
         for (int i = 0; i < 4; i++)
-            FormFields[i].setBorder(borda);
-        AtualizaJanela();
-        CriaJanela(FormFields);
+            FormFields[i].setBorder(borderBox);
+        Update();
+        CreateUserInterface(FormFields);
     }
 
-    public void AtualizaJanela() {
-        DefaultTableModel Modelo = new DefaultTableModel(
+    public void Update() {
+        DefaultTableModel ModeloFilmes = new DefaultTableModel(
                 new Object[] { "Nome", "Elenco ", "Indicacao", "Genero", "Sinopse" }, 0);
         try {
-            ResultSet Dados = SQLStatement.executeQuery("SELECT * FROM FILMES");
-            while (Dados.next()) {
-                String Nome = Dados.getString("NOME");
-                String Elenco = Dados.getString("ELENCO");
-                int Indicacao = Dados.getInt("Indicacao");
-                String Genero = Dados.getString("GENERO");
-                String Sinopse = Dados.getString("SINOPSE");
-                Modelo.addRow(new Object[] { Nome, Elenco, Indicacao, Genero, Sinopse });
-                Dados.next();
+            ResultSet SQLResult = SQLStatement.executeQuery("SELECT * FROM FILMES");
+            while (SQLResult.next()) {
+                String Nome = SQLResult.getString("NOME");
+                String Elenco = SQLResult.getString("ELENCO");
+                int Indicacao = SQLResult.getInt("Indicacao");
+                String Genero = SQLResult.getString("GENERO");
+                String Sinopse = SQLResult.getString("SINOPSE");
+                ModeloFilmes.addRow(new Object[] { Nome, Elenco, Indicacao, Genero, Sinopse });
+                SQLResult.next();
             }
         } catch (SQLException erro) {
             erro.printStackTrace();
             System.exit(1);
         }
-        Tabela.setModel(Modelo);
+        MoviesTable.setModel(ModeloFilmes);
     }
 
-    class Insere implements ActionListener {
+    class CreateNew implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
-            String Nome = InsNome.getText();
-            String Elenco = InsElenco.getText();
-            String indicacao = InsIndicacao.getText();
-            String Genero = InsGenero.getText();
-            String Sinopse = InsSinopse.getText();
+            String Nome = CreateName.getText();
+            String Elenco = CreateCast.getText();
+            String indicacao = CreateParentalRating.getText();
+            String Genero = CreateMovieGenre.getText();
+            String Sinopse = CreateSynopsis.getText();
 
             try {
                 SQLStatement.executeUpdate("INSERT INTO FILMES VALUES('" + Nome + "', '" + Elenco + "', '" + indicacao
@@ -151,18 +147,18 @@ public class Filmes extends WindowDatabase {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
 
-    class Altera implements ActionListener {
+    class UpdateFields implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
-            String NomeEspecificado = AltID.getText();
-            String Nome = AltNome.getText();
-            String Elenco = AltElenco.getText();
-            String Indicacao = AltIndicacao.getText();
-            String Genero = AltGenero.getText();
-            String Sinopse = AltSinopse.getText();
+            String NomeEspecificado = UpdatableName.getText();
+            String Nome = UpdateName.getText();
+            String Elenco = UpdateCast.getText();
+            String Indicacao = UpdateParentalRating.getText();
+            String Genero = UpdateMovieGenre.getText();
+            String Sinopse = UpdateSynopsis.getText();
 
             try {
                 SQLStatement.executeUpdate("UPDATE FILMES SET NOME='" + Nome + "', ELENCO='" + Elenco + "', INDICACAO='"
@@ -172,24 +168,21 @@ public class Filmes extends WindowDatabase {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
 
-    class Exclui implements ActionListener {
+    class DeleteData implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
-            String Nome = ExcID.getText();
-            if (Nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira um nome para especificar o filme que deseja excluir.");
-                return;
-            }
+            String Nome = DeletableName.getText();
+      
             try {
                 SQLStatement.executeUpdate("DELETE FROM FILMES WHERE NOME='" + Nome + "'");
             } catch (SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
 }

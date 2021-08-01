@@ -1,14 +1,14 @@
 //java -classpath .:hsql.jar SistemaLoja
 
 public class StreamingDatabase {
-    Musicas tpedidos;
-    Filmes tFilmes;
-    Assinantes tassinantes;
+    Musicas tablesMusicas;
+    Filmes tabelaFilmes;
+    Assinantes tabelaAssinantes;
 
     StreamingDatabase() {
-        tpedidos = new Musicas();
-        tFilmes = new Filmes();
-        tassinantes = new Assinantes();
+        tablesMusicas = new Musicas();
+        tabelaFilmes = new Filmes();
+        tabelaAssinantes = new Assinantes();
     }
 
     public static void main(String[] args) {
