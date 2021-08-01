@@ -126,35 +126,7 @@ public class Assinantes extends Janela {
             String Cartao = InsCartao.getText();
             String Endereco = InsEndereco.getText();
             String Plano = InsPlano.getText();
-            if (Cartao.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira o numero do cartao.");
-                return;
-            }
-            if (Cartao.length() > 25) {
-                JOptionPane.showMessageDialog(null,"Insira um numero com menos de 25 caracteres.");
-                return;
-            }
-            if (Nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um nome.");
-                return;
-            }
-            if (Nome.length() > 50) {
-                JOptionPane.showMessageDialog(null,"Insira um nome com menos de 50 caracteres.");
-                return;
-            }
-            if (Endereco.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um Endereco.");
-                return;
-            }
-     
-            if (Plano.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira uma descricao.");
-                return;
-            }
-            if (Plano.length() > 100) {
-                JOptionPane.showMessageDialog(null,"Insira uma descricao com menos de 100 caracteres.");
-                return;
-            }
+         
             try {
                 Afirmacao.executeUpdate("INSERT INTO ASSINANTES VALUES('"+ Cartao +"', '"+ Nome +"', '"+ Endereco +"', '"+ Plano +"')");
             } catch(SQLException erro) {
@@ -171,43 +143,7 @@ public class Assinantes extends Janela {
             String Nome = AltNome.getText();
             String Endereco = AlteraEndereco.getText();
             String Plano = AltPlano.getText();
-            if (NomeEspecificado.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um nome como especificacao.");
-                return;
-            }
-            if (NomeEspecificado.length() > 50) {
-                JOptionPane.showMessageDialog(null,"Insira um nome com 50 caracteres ou menos como especificacao.");
-                return;
-            }
-            if (Cartao.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um cargo.");
-                return;
-            }
-            if (Cartao.length() > 25) {
-                JOptionPane.showMessageDialog(null,"Insira um cargo com menos de 25 caracteres.");
-                return;
-            }
-            if (Nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um nome.");
-                return;
-            }
-            if (Nome.length() > 50) {
-                JOptionPane.showMessageDialog(null,"Insira um nome com menos de 50 caracteres.");
-                return;
-            }
-            if (Endereco.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um Endereco.");
-                return;
-            }
-      
-            if (Plano.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um plano de assinatura.");
-                return;
-            }
-            if (Plano.length() > 100) {
-                JOptionPane.showMessageDialog(null,"Insira uma descricao com menos de 100 caracteres.");
-                return;
-            }
+        
             try {
                 Afirmacao.executeUpdate("UPDATE ASSINANTES SET CARTAO='"+ Cartao +"', NOME='"+ Nome +"', ENDERCO='"+ Endereco +"', PLANO='"+ Plano +"' WHERE NOME='"+ NomeEspecificado +"'");
             } catch(SQLException erro) {
@@ -220,14 +156,7 @@ public class Assinantes extends Janela {
     class Exclui implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
             String Nome = ExcID.getText();
-            if (Nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um nome para especificar o cadastro que deseja excluir.");
-                return;
-            }
-            if (Nome.length() > 50) {
-                JOptionPane.showMessageDialog(null,"Insira um nome com 50 ou menos caracteres para especificar o cadastro que deseja excluir.");
-                return;
-            }
+        
             try {
                 Afirmacao.executeUpdate("DELETE FROM ASSINANTES WHERE NOME='"+ Nome +"'");
             } catch(SQLException erro) {

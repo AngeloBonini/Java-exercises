@@ -20,19 +20,23 @@ import java.sql.ResultSet;
 public class Filmes extends Janela {
     JPanel Campos[] = new JPanel[4];
     JTable Tabela;
-    JTextArea InsNome, InsElenco, InsIndicacao, InsGenero, InsSinopse, AltID, AltNome, AltElenco, AltIndicacao, AltGenero, AltSinopse, ExcID;
+    JTextArea InsNome, InsElenco, InsIndicacao, InsGenero, InsSinopse, AltID, AltNome, AltElenco, AltIndicacao,
+            AltGenero, AltSinopse, ExcID;
     JButton BInserir, BAlterar, BExcluir;
 
     Filmes() {
         super("Filmes");
         CriaBancoDados("BD-Filmes");
         try {
-            Afirmacao.executeUpdate("CREATE TABLE FILMES (NOME VARCHAR(50), ELENCO VARCHAR(100), INDICACAO INT, GENERO VARCHAR(25), SINOPSE VARCHAR(100))");
-        } catch (SQLException excecao) {}
-        
+            Afirmacao.executeUpdate(
+                    "CREATE TABLE FILMES (NOME VARCHAR(50), ELENCO VARCHAR(100), INDICACAO INT, GENERO VARCHAR(25), SINOPSE VARCHAR(100))");
+        } catch (SQLException excecao) {
+        }
+
         Border borda = BorderFactory.createLineBorder(Color.black);
 
-        for (int i = 0; i < 4; i++) Campos[i] = new JPanel();
+        for (int i = 0; i < 4; i++)
+            Campos[i] = new JPanel();
 
         Campos[0].setLayout(new GridLayout(6, 2));
         Campos[0].add(new JLabel("Cadastrar filme"));
@@ -100,17 +104,20 @@ public class Filmes extends Janela {
         ExcID.setBorder(borda);
         Campos[2].add(ExcID);
 
-        Tabela = new JTable(new Object[1][6], new String[] {"Nome", "Elenco", "Indicacao", "Genero", "Sinopse"});
+        Tabela = new JTable(new Object[1][6], new String[] { "Nome", "Elenco", "Indicacao", "Genero", "Sinopse" });
         Campos[3].setLayout(new GridLayout(2, 1));
         Campos[3].add(Tabela.getTableHeader());
         Campos[3].add(Tabela);
 
-        for (int i = 0; i < 4; i++) Campos[i].setBorder(borda);
+        for (int i = 0; i < 4; i++)
+            Campos[i].setBorder(borda);
         AtualizaJanela();
         CriaJanela(Campos);
     }
+
     public void AtualizaJanela() {
-        DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Nome", "Elenco ", "Indicacao", "Genero", "Sinopse"}, 0);
+        DefaultTableModel Modelo = new DefaultTableModel(
+                new Object[] { "Nome", "Elenco ", "Indicacao", "Genero", "Sinopse" }, 0);
         try {
             ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM FILMES");
             while (Dados.next()) {
@@ -119,7 +126,7 @@ public class Filmes extends Janela {
                 int Indicacao = Dados.getInt("Indicacao");
                 String Genero = Dados.getString("GENERO");
                 String Sinopse = Dados.getString("SINOPSE");
-                Modelo.addRow(new Object[] {Nome, Elenco, Indicacao, Genero, Sinopse});
+                Modelo.addRow(new Object[] { Nome, Elenco, Indicacao, Genero, Sinopse });
                 Dados.next();
             }
         } catch (SQLException erro) {
@@ -136,42 +143,18 @@ public class Filmes extends Janela {
             String indicacao = InsIndicacao.getText();
             String Genero = InsGenero.getText();
             String Sinopse = InsSinopse.getText();
-            if (Nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira um nome.");
-                return;
-            }
 
-            if (Elenco.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um elenco.");
-                return;
-            }
- 
-            int Indicacao;
             try {
-                Indicacao = Integer.parseInt(indicacao);
-            } catch (NumberFormatException erro) {
-                JOptionPane.showMessageDialog(null,"Insira um numero inteiro como indicacao.");
-                return;
-            }
-            if (Genero.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira um tipo.");
-                return;
-            }
-        
-            if (Sinopse.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira uma descricao.");
-                return;
-            }
-     
-            try {
-                Afirmacao.executeUpdate("INSERT INTO FILMES VALUES('"+ Nome +"', '"+ Elenco +"', '"+ indicacao +"', '"+ Genero +"', '"+ Sinopse +"')");
-            } catch(SQLException erro) {
+                Afirmacao.executeUpdate("INSERT INTO FILMES VALUES('" + Nome + "', '" + Elenco + "', '" + indicacao
+                        + "', '" + Genero + "', '" + Sinopse + "')");
+            } catch (SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
             AtualizaJanela();
         }
     }
+
     class Altera implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
             String NomeEspecificado = AltID.getText();
@@ -180,57 +163,29 @@ public class Filmes extends Janela {
             String Indicacao = AltIndicacao.getText();
             String Genero = AltGenero.getText();
             String Sinopse = AltSinopse.getText();
-            if (NomeEspecificado.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira o nome do filme a alterar.");
-                return;
-            }
-     
-            if (Nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um nome.");
-                return;
-            }
-            if (Elenco.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um elenco.");
-                return;
-            }
-     
 
-            int indicacao;
             try {
-                indicacao = Integer.parseInt(Indicacao);
-            } catch (NumberFormatException erro) {
-                JOptionPane.showMessageDialog(null,"Insira um numero inteiro como indicacao.");
-                return;
-            }
-            if (Genero.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira um genero de cinema.");
-                return;
-            }
-
-            if (Sinopse.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira uma Sinopse.");
-                return;
-            }
-   
-            try {
-                Afirmacao.executeUpdate("UPDATE FILMES SET NOME='"+ Nome +"', ELENCO='"+ Elenco +"', INDICACAO='"+ Indicacao +"', GENERO='"+ Genero +"', SINOPSE='"+ Sinopse +"' WHERE NOME='"+ NomeEspecificado +"'");
-            } catch(SQLException erro) {
+                Afirmacao.executeUpdate("UPDATE FILMES SET NOME='" + Nome + "', ELENCO='" + Elenco + "', INDICACAO='"
+                        + Indicacao + "', GENERO='" + Genero + "', SINOPSE='" + Sinopse + "' WHERE NOME='"
+                        + NomeEspecificado + "'");
+            } catch (SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
             AtualizaJanela();
         }
     }
+
     class Exclui implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
             String Nome = ExcID.getText();
             if (Nome.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um nome para especificar o filme que deseja excluir.");
+                JOptionPane.showMessageDialog(null, "Insira um nome para especificar o filme que deseja excluir.");
                 return;
             }
             try {
-                Afirmacao.executeUpdate("DELETE FROM FILMES WHERE NOME='"+ Nome +"'");
-            } catch(SQLException erro) {
+                Afirmacao.executeUpdate("DELETE FROM FILMES WHERE NOME='" + Nome + "'");
+            } catch (SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
