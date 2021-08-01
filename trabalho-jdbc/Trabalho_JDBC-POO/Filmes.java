@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class Filmes extends Janela {
+public class Filmes extends WindowDatabase {
     JPanel Campos[] = new JPanel[4];
     JTable Tabela;
     JTextArea InsNome, InsElenco, InsIndicacao, InsGenero, InsSinopse, AltID, AltNome, AltElenco, AltIndicacao,

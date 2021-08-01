@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class Assinantes extends Janela {
+public class Assinantes extends WindowDatabase {
     JPanel Campos[] = new JPanel[4];
     JTable Tabela;
     JTextArea InsNome, InsCartao, InsEndereco, InsPlano, AltID, AltCartao, AltNome, AlteraEndereco, AltPlano, ExcID;

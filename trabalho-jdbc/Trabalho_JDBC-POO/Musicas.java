@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class Musicas extends Janela {
+public class Musicas extends WindowDatabase {
     JPanel Campos[] = new JPanel[4];
     JTable Tabela;
     JTextArea InsTitulo, InsDuracao, InsLetra, AltID, AltTitulo, AltDuracao, AltLetra, ExcID;

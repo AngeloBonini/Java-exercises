@@ -9,11 +9,11 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 
-public class Janela extends JFrame {
+public class WindowDatabase extends JFrame {
     Connection Conexao;
     Statement Afirmacao;
 
-    Janela(String Titulo) {
+    WindowDatabase(String Titulo) {
         super(Titulo);
     }
     void CriaJanela(JPanel Campos[]) {
