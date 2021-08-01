@@ -17,17 +17,17 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class Pedidos extends Janela {
+public class Musicas extends Janela {
     JPanel Campos[] = new JPanel[4];
     JTable Tabela;
     JTextArea InsCliente, InsValor, InsDescricao, AltID, AltCliente, AltValor, AltDescricao, ExcID;
     JButton BInserir, BAlterar, BExcluir;
 
-    Pedidos() {
-        super("Pedidos");
-        CriaBancoDados("BD-Pedi");
+    Musicas() {
+        super("Musicas");
+        CriaBancoDados("BD-Musicas");
         try {
-            Afirmacao.executeUpdate("CREATE TABLE PEDIDOS (CLIENTE VARCHAR(50), VALOR FLOAT, DESCRICAO VARCHAR(100))");
+            Afirmacao.executeUpdate("CREATE TABLE MUSICAS (TITULO VARCHAR(50), DURACAO FLOAT, LETRA VARCHAR(100))");
         } catch (SQLException excecao) {}
 
         Border borda = BorderFactory.createLineBorder(Color.black);
@@ -96,11 +96,11 @@ public class Pedidos extends Janela {
     public void AtualizaJanela() {
         DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Cliente", "Valor", "Descricao"}, 0);
         try {
-            ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM PEDIDOS");
+            ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM MUSICAS");
             while (Dados.next()) {
-                String Cliente = Dados.getString("CLIENTE");
-                float Valor = Dados.getFloat("VALOR");
-                String Descricao = Dados.getString("DESCRICAO");
+                String Cliente = Dados.getString("TITULO");
+                float Valor = Dados.getFloat("DURACAO");
+                String Descricao = Dados.getString("LETRA");
                 Modelo.addRow(new Object[] {Cliente, Valor, Descricao});
                 Dados.next();
             }
@@ -143,7 +143,7 @@ public class Pedidos extends Janela {
                 return;
             }
             try {
-                Afirmacao.executeUpdate("INSERT INTO PEDIDOS VALUES('"+ Cliente +"', "+ Valor +", '"+ Descricao +"')");
+                Afirmacao.executeUpdate("INSERT INTO MUSICAS VALUES('"+ Cliente +"', "+ Valor +", '"+ Descricao +"')");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -193,7 +193,7 @@ public class Pedidos extends Janela {
                 return;
             }
             try {
-                Afirmacao.executeUpdate("UPDATE PEDIDOS SET CLIENTE='"+ Cliente +"', VALOR="+ Valor +", DESCRICAO='"+ Descricao +"' WHERE CLIENTE='"+ ClienteEspecificado +"'");
+                Afirmacao.executeUpdate("UPDATE MUSICAS SET TITULO='"+ Cliente +"', DURACAO='"+ Valor +"', LETRA='"+ Descricao +"' WHERE TITULO='"+ ClienteEspecificado +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -213,7 +213,7 @@ public class Pedidos extends Janela {
                 return;
             }
             try {
-                Afirmacao.executeUpdate("DELETE FROM PEDIDOS WHERE CLIENTE='"+ Cliente +"'");
+                Afirmacao.executeUpdate("DELETE FROM MUSICAS WHERE TITULO='"+ Cliente +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
