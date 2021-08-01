@@ -1,4 +1,4 @@
-//java -classpath .;hsql.jar SistemaLoja
+//java -classpath .:hsql.jar SistemaLoja
 
 public class SistemaLoja {
     Musicas tpedidos;

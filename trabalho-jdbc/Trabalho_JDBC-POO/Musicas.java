@@ -90,10 +90,10 @@ public class Musicas extends Janela {
         Campos[3].add(Tabela);
 
         for (int i = 0; i < 4; i++) Campos[i].setBorder(borda);
-        AtualizaJanela();
+        Update();
         CriaJanela(Campos);
     }
-    public void AtualizaJanela() {
+    public void Update() {
         DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Título", "Duração", "Letra"}, 0);
         try {
             ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM MUSICAS");
@@ -115,110 +115,44 @@ public class Musicas extends Janela {
             String Titulo = InsTitulo.getText();
             String Duracao = InsDuracao.getText();
             String Letra = InsLetra.getText();
-            if (Titulo.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira um cliente.");
-                return;
-            }
-            if (Titulo.length() > 50) {
-                JOptionPane.showMessageDialog(null, "Insira um nome com 50 caracteres ou menos.");
-                return;
-            }
-            if (Duracao.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um Duracao.");
-                return;
-            }
-            // float Duracao;
-            // try {
-            //     Duracao = Float.parseFloat(Duracao);
-            // } catch (NumberFormatException erro) {
-            //     JOptionPane.showMessageDialog(null,"Insira um numero real como Duracao.");
-            //     return;
-            // }
-            if (Letra.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira uma descricao.");
-                return;
-            }
-            if (Letra.length() > 100) {
-                JOptionPane.showMessageDialog(null, "Insira uma descricao com 100 caracteres ou menos.");
-                return;
-            }
+   
             try {
                 Afirmacao.executeUpdate("INSERT INTO MUSICAS VALUES('"+ Titulo +"', '"+ Duracao +"', '"+ Letra +"')");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
     class Altera implements ActionListener {
+        
         public void actionPerformed(ActionEvent evento) {
             String ClienteEspecificado = AltID.getText();
             String Titulo = AltTitulo.getText();
             String Duracao = AltDuracao.getText();
             String Letra = AltLetra.getText();
-            if (ClienteEspecificado.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira um nome como especificacao.");
-                return;
-            }
-            if (ClienteEspecificado.length() > 50) {
-                JOptionPane.showMessageDialog(null, "Insira um nome com 50 caracteres ou menos como especificacao.");
-                return;
-            }
-            if (Titulo.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira um cliente.");
-                return;
-            }
-            if (Titulo.length() > 50) {
-                JOptionPane.showMessageDialog(null, "Insira um nome com 50 caracteres ou menos.");
-                return;
-            }
-            if (Duracao.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um Duracao.");
-                return;
-            }
-            // float Duracao;
-            // try {
-            //     Duracao = Float.parseFloat(Duracao);
-            // } catch (NumberFormatException erro) {
-            //     JOptionPane.showMessageDialog(null,"Insira um numero real como Duracao.");
-            //     return;
-            // }
-            if (Letra.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Insira uma descricao.");
-                return;
-            }
-            if (Letra.length() > 100) {
-                JOptionPane.showMessageDialog(null, "Insira uma descricao com 100 caracteres ou menos.");
-                return;
-            }
+   
             try {
                 Afirmacao.executeUpdate("UPDATE MUSICAS SET TITULO='"+ Titulo +"', DURACAO='"+ Duracao +"', LETRA='"+ Letra +"' WHERE TITULO='"+ ClienteEspecificado +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
     class Exclui implements ActionListener {
         public void actionPerformed(ActionEvent evento) {
             String Titulo = ExcID.getText();
-            if (Titulo.isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Insira um nome como especificacao.");
-                return;
-            }
-            if (Titulo.length() > 50) {
-                JOptionPane.showMessageDialog(null,"Insira um nome com 50 ou menos caracteres como especificacao.");
-                return;
-            }
+    
             try {
                 Afirmacao.executeUpdate("DELETE FROM MUSICAS WHERE TITULO='"+ Titulo +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
             }
-            AtualizaJanela();
+            Update();
         }
     }
 }
