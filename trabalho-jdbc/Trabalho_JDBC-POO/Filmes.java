@@ -28,7 +28,7 @@ public class Filmes extends WindowDatabase {
         super("Filmes");
         CriaBancoDados("BD-Filmes");
         try {
-            Afirmacao.executeUpdate(
+            SQLStatement.executeUpdate(
                     "CREATE TABLE FILMES (NOME VARCHAR(50), ELENCO VARCHAR(100), INDICACAO INT, GENERO VARCHAR(25), SINOPSE VARCHAR(100))");
         } catch (SQLException excecao) {
         }
@@ -119,7 +119,7 @@ public class Filmes extends WindowDatabase {
         DefaultTableModel Modelo = new DefaultTableModel(
                 new Object[] { "Nome", "Elenco ", "Indicacao", "Genero", "Sinopse" }, 0);
         try {
-            ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM FILMES");
+            ResultSet Dados = SQLStatement.executeQuery("SELECT * FROM FILMES");
             while (Dados.next()) {
                 String Nome = Dados.getString("NOME");
                 String Elenco = Dados.getString("ELENCO");
@@ -145,7 +145,7 @@ public class Filmes extends WindowDatabase {
             String Sinopse = InsSinopse.getText();
 
             try {
-                Afirmacao.executeUpdate("INSERT INTO FILMES VALUES('" + Nome + "', '" + Elenco + "', '" + indicacao
+                SQLStatement.executeUpdate("INSERT INTO FILMES VALUES('" + Nome + "', '" + Elenco + "', '" + indicacao
                         + "', '" + Genero + "', '" + Sinopse + "')");
             } catch (SQLException erro) {
                 erro.printStackTrace();
@@ -165,7 +165,7 @@ public class Filmes extends WindowDatabase {
             String Sinopse = AltSinopse.getText();
 
             try {
-                Afirmacao.executeUpdate("UPDATE FILMES SET NOME='" + Nome + "', ELENCO='" + Elenco + "', INDICACAO='"
+                SQLStatement.executeUpdate("UPDATE FILMES SET NOME='" + Nome + "', ELENCO='" + Elenco + "', INDICACAO='"
                         + Indicacao + "', GENERO='" + Genero + "', SINOPSE='" + Sinopse + "' WHERE NOME='"
                         + NomeEspecificado + "'");
             } catch (SQLException erro) {
@@ -184,7 +184,7 @@ public class Filmes extends WindowDatabase {
                 return;
             }
             try {
-                Afirmacao.executeUpdate("DELETE FROM FILMES WHERE NOME='" + Nome + "'");
+                SQLStatement.executeUpdate("DELETE FROM FILMES WHERE NOME='" + Nome + "'");
             } catch (SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);

@@ -27,7 +27,7 @@ public class Assinantes extends WindowDatabase {
         super("Assinantes");
         CriaBancoDados("BD-Assinantes");
         try {
-            Afirmacao.executeUpdate("CREATE TABLE ASSINANTES ( NOME VARCHAR(50), ENDERECO VARCHAR(25),  CARTAO VARCHAR(25), PLANO VARCHAR(50))");
+            SQLStatement.executeUpdate("CREATE TABLE ASSINANTES ( NOME VARCHAR(50), ENDERECO VARCHAR(25),  CARTAO VARCHAR(25), PLANO VARCHAR(50))");
         } catch (SQLException excecao) {}
         Border borda = BorderFactory.createLineBorder(Color.black);
 
@@ -104,7 +104,7 @@ public class Assinantes extends WindowDatabase {
     public void AtualizaJanela() {
         DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Cartao", "Nome", "Endereco", "Plano de assinatura"}, 0);
         try {
-            ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM ASSINANTES");
+            ResultSet Dados = SQLStatement.executeQuery("SELECT * FROM ASSINANTES");
             while (Dados.next()) {
                 String Cartao = Dados.getString("CARTAO");
                 String Nome = Dados.getString("NOME");
@@ -128,7 +128,7 @@ public class Assinantes extends WindowDatabase {
             String Plano = InsPlano.getText();
          
             try {
-                Afirmacao.executeUpdate("INSERT INTO ASSINANTES VALUES('"+ Cartao +"', '"+ Nome +"', '"+ Endereco +"', '"+ Plano +"')");
+                SQLStatement.executeUpdate("INSERT INTO ASSINANTES VALUES('"+ Cartao +"', '"+ Nome +"', '"+ Endereco +"', '"+ Plano +"')");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -145,7 +145,7 @@ public class Assinantes extends WindowDatabase {
             String Plano = AltPlano.getText();
         
             try {
-                Afirmacao.executeUpdate("UPDATE ASSINANTES SET CARTAO='"+ Cartao +"', NOME='"+ Nome +"', ENDERCO='"+ Endereco +"', PLANO='"+ Plano +"' WHERE NOME='"+ NomeEspecificado +"'");
+                SQLStatement.executeUpdate("UPDATE ASSINANTES SET CARTAO='"+ Cartao +"', NOME='"+ Nome +"', ENDERCO='"+ Endereco +"', PLANO='"+ Plano +"' WHERE NOME='"+ NomeEspecificado +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -158,7 +158,7 @@ public class Assinantes extends WindowDatabase {
             String Nome = ExcID.getText();
         
             try {
-                Afirmacao.executeUpdate("DELETE FROM ASSINANTES WHERE NOME='"+ Nome +"'");
+                SQLStatement.executeUpdate("DELETE FROM ASSINANTES WHERE NOME='"+ Nome +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);

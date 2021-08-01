@@ -27,7 +27,7 @@ public class Musicas extends WindowDatabase {
         super("Musicas");
         CriaBancoDados("BD-Musicas");
         try {
-            Afirmacao.executeUpdate("CREATE TABLE MUSICAS (TITULO VARCHAR(50), DURACAO FLOAT, LETRA VARCHAR(500))");
+            SQLStatement.executeUpdate("CREATE TABLE MUSICAS (TITULO VARCHAR(50), DURACAO FLOAT, LETRA VARCHAR(500))");
         } catch (SQLException excecao) {}
 
         Border borda = BorderFactory.createLineBorder(Color.black);
@@ -96,7 +96,7 @@ public class Musicas extends WindowDatabase {
     public void Update() {
         DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Título", "Duração", "Letra"}, 0);
         try {
-            ResultSet Dados = Afirmacao.executeQuery("SELECT * FROM MUSICAS");
+            ResultSet Dados = SQLStatement.executeQuery("SELECT * FROM MUSICAS");
             while (Dados.next()) {
                 String Titulo = Dados.getString("TITULO");
                 float Duracao = Dados.getFloat("DURACAO");
@@ -117,7 +117,7 @@ public class Musicas extends WindowDatabase {
             String Letra = InsLetra.getText();
    
             try {
-                Afirmacao.executeUpdate("INSERT INTO MUSICAS VALUES('"+ Titulo +"', '"+ Duracao +"', '"+ Letra +"')");
+                SQLStatement.executeUpdate("INSERT INTO MUSICAS VALUES('"+ Titulo +"', '"+ Duracao +"', '"+ Letra +"')");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -134,7 +134,7 @@ public class Musicas extends WindowDatabase {
             String Letra = AltLetra.getText();
    
             try {
-                Afirmacao.executeUpdate("UPDATE MUSICAS SET TITULO='"+ Titulo +"', DURACAO='"+ Duracao +"', LETRA='"+ Letra +"' WHERE TITULO='"+ ClienteEspecificado +"'");
+                SQLStatement.executeUpdate("UPDATE MUSICAS SET TITULO='"+ Titulo +"', DURACAO='"+ Duracao +"', LETRA='"+ Letra +"' WHERE TITULO='"+ ClienteEspecificado +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -147,7 +147,7 @@ public class Musicas extends WindowDatabase {
             String Titulo = ExcID.getText();
     
             try {
-                Afirmacao.executeUpdate("DELETE FROM MUSICAS WHERE TITULO='"+ Titulo +"'");
+                SQLStatement.executeUpdate("DELETE FROM MUSICAS WHERE TITULO='"+ Titulo +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);

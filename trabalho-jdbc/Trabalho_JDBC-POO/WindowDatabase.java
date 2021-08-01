@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 
 public class WindowDatabase extends JFrame {
-    Connection Conexao;
-    Statement Afirmacao;
+    Connection databaseConnection;
+    Statement SQLStatement;
 
     WindowDatabase(String Titulo) {
         super(Titulo);
@@ -27,8 +27,8 @@ public class WindowDatabase extends JFrame {
     public void CriaBancoDados(String BD) {
         try {
             Class.forName("org.hsql.jdbcDriver");
-            Conexao = DriverManager.getConnection("jdbc:HypersonicSQL:" + BD, "sa", "");
-            Afirmacao = Conexao.createStatement();
+            databaseConnection = DriverManager.getConnection("jdbc:HypersonicSQL:" + BD, "sa", "");
+            SQLStatement = databaseConnection.createStatement();
         } catch (ClassNotFoundException excecao) {
             excecao.printStackTrace();
             System.exit(1);
