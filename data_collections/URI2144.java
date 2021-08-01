@@ -16,17 +16,18 @@ public class URI2144 {
 		for(int q=0 ; q<n ; q++){
 			String entrada = sc.nextLine();
 			String[] entr = entrada.split(" ");
-			Iterator lista = new Iterator();
+			ArrayList lista = new ArrayList<String>();
 
+            Iterator<String> it = lista.iterator();
+            
 			for(int i=0 ; i<entr.length ; i++)
-				lista.add(entr[i]);
+            lista.add(entr[i]);
 			
 			 while(!lista.isEmpty()) {
 		            String maior = "";
 		            for(String x : lista) 
 		                if(x.length() > maior.length())
 		                    maior = x;
-
 		            System.out.printf("%s",maior);
 		            if(lista.contains(maior)) 
 		                lista.remove(maior);
