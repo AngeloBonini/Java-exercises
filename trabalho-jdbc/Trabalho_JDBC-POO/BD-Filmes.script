@@ -1,4 +1,4 @@
-CREATE TABLE PEDIDOS(CLIENTE VARCHAR,VALOR FLOAT,DESCRICAO VARCHAR)
+CREATE TABLE FILMES(NOME VARCHAR,ELENCO VARCHAR,INDICACAO INTEGER,GENERO VARCHAR,SINOPSE VARCHAR)
 CREATE USER SA PASSWORD "" ADMIN
 CREATE ALIAS DAYNAME FOR "org.hsql.Library.dayname"
 CREATE ALIAS SPACE FOR "org.hsql.Library.space"
@@ -65,5 +65,13 @@ CREATE ALIAS RAND FOR "java.lang.Math.random"
 CREATE ALIAS LENGTH FOR "org.hsql.Library.length"
 CREATE ALIAS ROUND FOR "org.hsql.Library.round"
 CREATE ALIAS REPLACE FOR "org.hsql.Library.replace"
-INSERT INTO PEDIDOS VALUES('afsasfas',123.0,'fgj')
-/*C2*/CONNECT USER sa PASSWORD ""
+INSERT INTO FILMES VALUES('sdfgsdfs','sdgsdgsdg',123,'dgsffdsg','bnm')
+INSERT INTO FILMES VALUES('dhfdhdfhdf','tytreyeryre',123,'fsfzfvzdfvz','fsdfsd')
+INSERT INTO FILMES VALUES('dhfdhdfhdf','tytreyeryre',123,'fsfzfvzdfvz','fsdfsd')
+/*C1*/CONNECT USER sa PASSWORD ""
+DELETE FROM FILMES WHERE NOME='dhfdhdfhdf' AND ELENCO='tytreyeryre' AND INDICACAO=123 AND GENERO='fsfzfvzdfvz' AND SINOPSE='fsdfsd'
+DELETE FROM FILMES WHERE NOME='dhfdhdfhdf' AND ELENCO='tytreyeryre' AND INDICACAO=123 AND GENERO='fsfzfvzdfvz' AND SINOPSE='fsdfsd'
+INSERT INTO FILMES VALUES('uiktyuktyky','vbnmvnhgvjhgvj',14,'terror','filme triste')
+INSERT INTO FILMES VALUES('uiktyuktyky','vbnmvnhgvjhgvj',14,'terror','filme triste')
+DELETE FROM FILMES WHERE NOME='uiktyuktyky' AND ELENCO='vbnmvnhgvjhgvj' AND INDICACAO=14 AND GENERO='terror' AND SINOPSE='filme triste'
+DELETE FROM FILMES WHERE NOME='uiktyuktyky' AND ELENCO='vbnmvnhgvjhgvj' AND INDICACAO=14 AND GENERO='terror' AND SINOPSE='filme triste'

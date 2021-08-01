@@ -108,7 +108,7 @@ public class Assinantes extends Janela {
             while (Dados.next()) {
                 String Cartao = Dados.getString("CARTAO");
                 String Nome = Dados.getString("NOME");
-                float Endereco = Dados.getFloat("ENDERECO");
+                String Endereco = Dados.getString("ENDERECO");
                 String Plano = Dados.getString("PLANO");
                 Modelo.addRow(new Object[] {Cartao, Nome, Endereco, Plano});
                 Dados.next();
@@ -156,7 +156,7 @@ public class Assinantes extends Janela {
                 return;
             }
             try {
-                Afirmacao.executeUpdate("INSERT INTO FUNCIONARIOS VALUES('"+ Cartao +"', '"+ Nome +"', "+ Endereco +", '"+ Plano +"')");
+                Afirmacao.executeUpdate("INSERT INTO ASSINANTES VALUES('"+ Cartao +"', '"+ Nome +"', '"+ Endereco +"', '"+ Plano +"')");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);
@@ -209,7 +209,7 @@ public class Assinantes extends Janela {
                 return;
             }
             try {
-                Afirmacao.executeUpdate("UPDATE ASSINANTES SET CARTAO='"+ Cartao +"', NOME='"+ Nome +"', ENDERCO="+ Endereco +", PLANO='"+ Plano +"' WHERE NOME='"+ NomeEspecificado +"'");
+                Afirmacao.executeUpdate("UPDATE ASSINANTES SET CARTAO='"+ Cartao +"', NOME='"+ Nome +"', ENDERCO='"+ Endereco +"', PLANO='"+ Plano +"' WHERE NOME='"+ NomeEspecificado +"'");
             } catch(SQLException erro) {
                 erro.printStackTrace();
                 System.exit(1);

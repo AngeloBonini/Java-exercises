@@ -2,12 +2,12 @@
 
 public class SistemaLoja {
     Pedidos tpedidos;
-    Inventario tinventario;
+    Filmes tFilmes;
     Assinantes tassinantes;
 
     SistemaLoja() {
         tpedidos = new Pedidos();
-        tinventario = new Inventario();
+        tFilmes = new Filmes();
         tassinantes = new Assinantes();
     }
 
