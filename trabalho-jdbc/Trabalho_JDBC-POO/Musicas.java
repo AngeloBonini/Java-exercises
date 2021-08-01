@@ -18,80 +18,80 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 public class Musicas extends WindowDatabase {
-    JPanel Campos[] = new JPanel[4];
+    JPanel FormFields[] = new JPanel[4];
     JTable Tabela;
     JTextArea InsTitulo, InsDuracao, InsLetra, AltID, AltTitulo, AltDuracao, AltLetra, ExcID;
     JButton BInserir, BAlterar, BExcluir;
 
     Musicas() {
         super("Musicas");
-        CriaBancoDados("BD-Musicas");
+        CreateDataBank("BD-Musicas");
         try {
             SQLStatement.executeUpdate("CREATE TABLE MUSICAS (TITULO VARCHAR(50), DURACAO FLOAT, LETRA VARCHAR(500))");
         } catch (SQLException excecao) {}
 
         Border borda = BorderFactory.createLineBorder(Color.black);
 
-        for (int i = 0; i < 4; i++) Campos[i] = new JPanel();
+        for (int i = 0; i < 4; i++) FormFields[i] = new JPanel();
 
-        Campos[0].setLayout(new GridLayout(4, 2));
-        Campos[0].add(new JLabel("Cadastrar musica"));
+        FormFields[0].setLayout(new GridLayout(4, 2));
+        FormFields[0].add(new JLabel("Cadastrar musica"));
         BInserir = new JButton("Cadastrar");
         BInserir.addActionListener(new Insere());
-        Campos[0].add(BInserir);
-        Campos[0].add(new JLabel("Título"));
+        FormFields[0].add(BInserir);
+        FormFields[0].add(new JLabel("Título"));
         InsTitulo = new JTextArea();
         InsTitulo.setBorder(borda);
-        Campos[0].add(InsTitulo);
-        Campos[0].add(new JLabel("Duração"));
+        FormFields[0].add(InsTitulo);
+        FormFields[0].add(new JLabel("Duração"));
         InsDuracao = new JTextArea();
         InsDuracao.setBorder(borda);
-        Campos[0].add(InsDuracao);
-        Campos[0].add(new JLabel("Letra"));
+        FormFields[0].add(InsDuracao);
+        FormFields[0].add(new JLabel("Letra"));
         InsLetra = new JTextArea();
         InsLetra.setBorder(borda);
-        Campos[0].add(InsLetra);
+        FormFields[0].add(InsLetra);
 
-        Campos[1].setLayout(new GridLayout(5, 2));
-        Campos[1].add(new JLabel("Alterar dados da música"));
+        FormFields[1].setLayout(new GridLayout(5, 2));
+        FormFields[1].add(new JLabel("Alterar dados da música"));
         BAlterar = new JButton("Alterar");
         BAlterar.addActionListener(new Altera());
-        Campos[1].add(BAlterar);
-        Campos[1].add(new JLabel("Título da música a ser alterada"));
+        FormFields[1].add(BAlterar);
+        FormFields[1].add(new JLabel("Título da música a ser alterada"));
         AltID = new JTextArea();
         AltID.setBorder(borda);
-        Campos[1].add(AltID);
-        Campos[1].add(new JLabel("Novo Título"));
+        FormFields[1].add(AltID);
+        FormFields[1].add(new JLabel("Novo Título"));
         AltTitulo = new JTextArea();
         AltTitulo.setBorder(borda);
-        Campos[1].add(AltTitulo);
-        Campos[1].add(new JLabel("Nova duração"));
+        FormFields[1].add(AltTitulo);
+        FormFields[1].add(new JLabel("Nova duração"));
         AltDuracao = new JTextArea();
         AltDuracao.setBorder(borda);
-        Campos[1].add(AltDuracao);
-        Campos[1].add(new JLabel("Nova Letra"));
+        FormFields[1].add(AltDuracao);
+        FormFields[1].add(new JLabel("Nova Letra"));
         AltLetra = new JTextArea();
         AltLetra.setBorder(borda);
-        Campos[1].add(AltLetra);
+        FormFields[1].add(AltLetra);
 
-        Campos[2].setLayout(new GridLayout(2, 2));
-        Campos[2].add(new JLabel("Excluir Excluir música"));
+        FormFields[2].setLayout(new GridLayout(2, 2));
+        FormFields[2].add(new JLabel("Excluir Excluir música"));
         BExcluir = new JButton("Excluir");
         BExcluir.addActionListener(new Exclui());
-        Campos[2].add(BExcluir);
-        Campos[2].add(new JLabel("Nome do nome da música excluida"));
+        FormFields[2].add(BExcluir);
+        FormFields[2].add(new JLabel("Nome do nome da música excluida"));
         ExcID = new JTextArea();
         ExcID.setBorder(borda);
-        Campos[2].add(ExcID);
+        FormFields[2].add(ExcID);
 
         Tabela = new JTable(new Object[1][4], new String[] {"Titulo", "Duração", "Letra"});
-        Campos[3].setLayout(new GridLayout(2, 1));
-        Campos[3].add(Tabela.getTableHeader());
-        Campos[3].add(Tabela);
+        FormFields[3].setLayout(new GridLayout(2, 1));
+        FormFields[3].add(Tabela.getTableHeader());
+        FormFields[3].add(Tabela);
 
-        for (int i = 0; i < 4; i++) Campos[i].setBorder(borda);
+        for (int i = 0; i < 4; i++) FormFields[i].setBorder(borda);
         Update();
-        CriaJanela(Campos);
+        CriaJanela(FormFields);
     }
     public void Update() {
         DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Título", "Duração", "Letra"}, 0);

@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 public class Filmes extends WindowDatabase {
-    JPanel Campos[] = new JPanel[4];
+    JPanel FormFields[] = new JPanel[4];
     JTable Tabela;
     JTextArea InsNome, InsElenco, InsIndicacao, InsGenero, InsSinopse, AltID, AltNome, AltElenco, AltIndicacao,
             AltGenero, AltSinopse, ExcID;
@@ -26,7 +26,7 @@ public class Filmes extends WindowDatabase {
 
     Filmes() {
         super("Filmes");
-        CriaBancoDados("BD-Filmes");
+        CreateDataBank("BD-Filmes");
         try {
             SQLStatement.executeUpdate(
                     "CREATE TABLE FILMES (NOME VARCHAR(50), ELENCO VARCHAR(100), INDICACAO INT, GENERO VARCHAR(25), SINOPSE VARCHAR(100))");
@@ -36,83 +36,83 @@ public class Filmes extends WindowDatabase {
         Border borda = BorderFactory.createLineBorder(Color.black);
 
         for (int i = 0; i < 4; i++)
-            Campos[i] = new JPanel();
+            FormFields[i] = new JPanel();
 
-        Campos[0].setLayout(new GridLayout(6, 2));
-        Campos[0].add(new JLabel("Cadastrar filme"));
+        FormFields[0].setLayout(new GridLayout(6, 2));
+        FormFields[0].add(new JLabel("Cadastrar filme"));
         BInserir = new JButton("Cadastrar");
         BInserir.addActionListener(new Insere());
-        Campos[0].add(BInserir);
-        Campos[0].add(new JLabel("Nome"));
+        FormFields[0].add(BInserir);
+        FormFields[0].add(new JLabel("Nome"));
         InsNome = new JTextArea();
         InsNome.setBorder(borda);
-        Campos[0].add(InsNome);
-        Campos[0].add(new JLabel("Elenco"));
+        FormFields[0].add(InsNome);
+        FormFields[0].add(new JLabel("Elenco"));
         InsElenco = new JTextArea();
         InsElenco.setBorder(borda);
-        Campos[0].add(InsElenco);
-        Campos[0].add(new JLabel("Cassificação Indicativa"));
+        FormFields[0].add(InsElenco);
+        FormFields[0].add(new JLabel("Cassificação Indicativa"));
         InsIndicacao = new JTextArea();
         InsIndicacao.setBorder(borda);
-        Campos[0].add(InsIndicacao);
-        Campos[0].add(new JLabel("Genero"));
+        FormFields[0].add(InsIndicacao);
+        FormFields[0].add(new JLabel("Genero"));
         InsGenero = new JTextArea();
         InsGenero.setBorder(borda);
-        Campos[0].add(InsGenero);
-        Campos[0].add(new JLabel("Sinopse"));
+        FormFields[0].add(InsGenero);
+        FormFields[0].add(new JLabel("Sinopse"));
         InsSinopse = new JTextArea();
         InsSinopse.setBorder(borda);
-        Campos[0].add(InsSinopse);
+        FormFields[0].add(InsSinopse);
 
-        Campos[1].setLayout(new GridLayout(7, 2));
-        Campos[1].add(new JLabel("Alterar filme"));
+        FormFields[1].setLayout(new GridLayout(7, 2));
+        FormFields[1].add(new JLabel("Alterar filme"));
         BAlterar = new JButton("Alterar");
         BAlterar.addActionListener(new Altera());
-        Campos[1].add(BAlterar);
-        Campos[1].add(new JLabel("Nome do filme para alterar"));
+        FormFields[1].add(BAlterar);
+        FormFields[1].add(new JLabel("Nome do filme para alterar"));
         AltID = new JTextArea();
         AltID.setBorder(borda);
-        Campos[1].add(AltID);
-        Campos[1].add(new JLabel("Nome"));
+        FormFields[1].add(AltID);
+        FormFields[1].add(new JLabel("Nome"));
         AltNome = new JTextArea();
         AltNome.setBorder(borda);
-        Campos[1].add(AltNome);
-        Campos[1].add(new JLabel("Elenco"));
+        FormFields[1].add(AltNome);
+        FormFields[1].add(new JLabel("Elenco"));
         AltElenco = new JTextArea();
         AltElenco.setBorder(borda);
-        Campos[1].add(AltElenco);
-        Campos[1].add(new JLabel("Classificaçao Indicativa"));
+        FormFields[1].add(AltElenco);
+        FormFields[1].add(new JLabel("Classificaçao Indicativa"));
         AltIndicacao = new JTextArea();
         AltIndicacao.setBorder(borda);
-        Campos[1].add(AltIndicacao);
-        Campos[1].add(new JLabel("Genero"));
+        FormFields[1].add(AltIndicacao);
+        FormFields[1].add(new JLabel("Genero"));
         AltGenero = new JTextArea();
         AltGenero.setBorder(borda);
-        Campos[1].add(AltGenero);
-        Campos[1].add(new JLabel("Sinopse"));
+        FormFields[1].add(AltGenero);
+        FormFields[1].add(new JLabel("Sinopse"));
         AltSinopse = new JTextArea();
         AltSinopse.setBorder(borda);
-        Campos[1].add(AltSinopse);
+        FormFields[1].add(AltSinopse);
 
-        Campos[2].setLayout(new GridLayout(2, 2));
-        Campos[2].add(new JLabel("Excluir filme"));
+        FormFields[2].setLayout(new GridLayout(2, 2));
+        FormFields[2].add(new JLabel("Excluir filme"));
         BExcluir = new JButton("Excluir");
         BExcluir.addActionListener(new Exclui());
-        Campos[2].add(BExcluir);
-        Campos[2].add(new JLabel("Nome do filme a ser apagado"));
+        FormFields[2].add(BExcluir);
+        FormFields[2].add(new JLabel("Nome do filme a ser apagado"));
         ExcID = new JTextArea();
         ExcID.setBorder(borda);
-        Campos[2].add(ExcID);
+        FormFields[2].add(ExcID);
 
         Tabela = new JTable(new Object[1][6], new String[] { "Nome", "Elenco", "Indicacao", "Genero", "Sinopse" });
-        Campos[3].setLayout(new GridLayout(2, 1));
-        Campos[3].add(Tabela.getTableHeader());
-        Campos[3].add(Tabela);
+        FormFields[3].setLayout(new GridLayout(2, 1));
+        FormFields[3].add(Tabela.getTableHeader());
+        FormFields[3].add(Tabela);
 
         for (int i = 0; i < 4; i++)
-            Campos[i].setBorder(borda);
+            FormFields[i].setBorder(borda);
         AtualizaJanela();
-        CriaJanela(Campos);
+        CriaJanela(FormFields);
     }
 
     public void AtualizaJanela() {

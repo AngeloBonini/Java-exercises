@@ -16,24 +16,24 @@ public class WindowDatabase extends JFrame {
     WindowDatabase(String Titulo) {
         super(Titulo);
     }
-    void CriaJanela(JPanel Campos[]) {
-        setLayout(new GridLayout(Campos.length, 1));
-        for (int i = 0; i < Campos.length; i++) add(Campos[i]);
+    void CriaJanela(JPanel FormFields[]) {
+        setLayout(new GridLayout(FormFields.length, 1));
+        for (int i = 0; i < FormFields.length; i++) add(FormFields[i]);
 
-        setSize(500, 500);
+        setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
-    public void CriaBancoDados(String BD) {
+    public void CreateDataBank(String BD) {
         try {
             Class.forName("org.hsql.jdbcDriver");
             databaseConnection = DriverManager.getConnection("jdbc:HypersonicSQL:" + BD, "sa", "");
             SQLStatement = databaseConnection.createStatement();
-        } catch (ClassNotFoundException excecao) {
-            excecao.printStackTrace();
+        } catch (ClassNotFoundException exception) {
+            exception.printStackTrace();
             System.exit(1);
-        } catch (SQLException excecao) {
-            excecao.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
             System.exit(1);
         }
     }
