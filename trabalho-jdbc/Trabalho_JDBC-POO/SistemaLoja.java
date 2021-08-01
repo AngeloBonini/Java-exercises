@@ -1,12 +1,12 @@
 //java -classpath .;hsql.jar SistemaLoja
 
 public class SistemaLoja {
-    Pedidos tpedidos;
+    Musicas tpedidos;
     Filmes tFilmes;
     Assinantes tassinantes;
 
     SistemaLoja() {
-        tpedidos = new Pedidos();
+        tpedidos = new Musicas();
         tFilmes = new Filmes();
         tassinantes = new Assinantes();
     }
