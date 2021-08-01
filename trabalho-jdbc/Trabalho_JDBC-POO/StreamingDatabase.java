@@ -1,4 +1,4 @@
-//java -classpath .:hsql.jar SistemaLoja
+
 
 public class StreamingDatabase {
     Musicas tablesMusicas;
@@ -15,3 +15,10 @@ public class StreamingDatabase {
         StreamingDatabase geloFlix = new StreamingDatabase();
     }
 }
+
+/**
+ * Instruções:
+ * 
+ * compile com javac *.java 
+ * depois rode: java -classpath .:hsql.jar  StreamingDatabase
+ */
