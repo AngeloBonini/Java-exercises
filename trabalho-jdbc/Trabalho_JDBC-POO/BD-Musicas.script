@@ -65,7 +65,6 @@ CREATE ALIAS RAND FOR "java.lang.Math.random"
 CREATE ALIAS LENGTH FOR "org.hsql.Library.length"
 CREATE ALIAS ROUND FOR "org.hsql.Library.round"
 CREATE ALIAS REPLACE FOR "org.hsql.Library.replace"
-/*C2*/CONNECT USER sa PASSWORD ""
 INSERT INTO MUSICAS VALUES('sfsdfsdfds',2.3,'gsdgsdgsdg')
 INSERT INTO MUSICAS VALUES('sfsdfsdfds',2.3,'gsdgsdgsdg')
 INSERT INTO MUSICAS VALUES('sfsdfsdfds',2.3,'gsdgsdgsdg')
@@ -89,3 +88,4 @@ INSERT INTO MUSICAS VALUES('sfsdfsdfds',2.3,'gsdgsdgsdg')
 INSERT INTO MUSICAS VALUES('sfsdfsdfds',2.3,'gsdgsdgsdg')
 INSERT INTO MUSICAS VALUES('sfsdfsdfds',2.3,'gsdgsdgsdg')
 INSERT INTO MUSICAS VALUES('sfsdfsdfds',2.3,'gsdgsdgsdg')
+/*C1*/CONNECT USER sa PASSWORD ""
