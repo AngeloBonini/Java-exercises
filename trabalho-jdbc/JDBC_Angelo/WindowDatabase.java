@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JOptionPane;
 
 import java.awt.GridLayout;
 
@@ -13,10 +12,10 @@ public class WindowDatabase extends JFrame {
     Connection databaseConnection;
     Statement SQLStatement;
 
-    WindowDatabase(String Titulo) {
-        super(Titulo);
+    WindowDatabase(String WindowTitle) {
+        super(WindowTitle);
     }
-    void CriaJanela(JPanel FormFields[]) {
+    void CreateUserInterface(JPanel FormFields[]) {
         setLayout(new GridLayout(FormFields.length, 1));
         for (int i = 0; i < FormFields.length; i++) add(FormFields[i]);
 
@@ -24,6 +23,7 @@ public class WindowDatabase extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
+
     public void CreateDataBank(String BD) {
         try {
             Class.forName("org.hsql.jdbcDriver");
