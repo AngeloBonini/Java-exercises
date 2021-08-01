@@ -20,88 +20,142 @@ import java.sql.ResultSet;
 public class Musicas extends WindowDatabase {
     JPanel FormFields[] = new JPanel[4];
     JTable Tabela;
-    JTextArea InsTitulo, InsDuracao, InsLetra, AltID, AltTitulo, AltDuracao, AltLetra, ExcID;
-    JButton BInserir, BAlterar, BExcluir;
+    JTextArea CreateTitle, CreateDuration, CreateLyrics, UpdatableName, UpdateTitle, UpdateDuration, UpdateLyrics,
+            DeletableName;
+    JButton CreateBtn, UpdateBtn, DeleteBtn;
 
     Musicas() {
         super("Musicas");
         CreateDataBank("BD-Musicas");
         try {
             SQLStatement.executeUpdate("CREATE TABLE MUSICAS (TITULO VARCHAR(50), DURACAO FLOAT, LETRA VARCHAR(500))");
-        } catch (SQLException excecao) {}
+        } catch (SQLException excecao) {
+        }
 
         Border borda = BorderFactory.createLineBorder(Color.black);
 
-        for (int i = 0; i < 4; i++) FormFields[i] = new JPanel();
+        for (int i = 0; i < 4; i++)
+            FormFields[i] = new JPanel();
 
         FormFields[0].setLayout(new GridLayout(4, 2));
-        FormFields[0].add(new JLabel("Cadastrar musica"));
-        BInserir = new JButton("Cadastrar");
-        BInserir.addActionListener(new Insere());
-        FormFields[0].add(BInserir);
+
+        CreateBtn = new JButton("Cadastrar");
+        CreateBtn.addActionListener(new CreateNew());
+        FormFields[0].add(CreateBtn);
         FormFields[0].add(new JLabel("Título"));
-        InsTitulo = new JTextArea();
-        InsTitulo.setBorder(borda);
-        FormFields[0].add(InsTitulo);
+        CreateTitle = new JTextArea();
+        CreateTitle.setBorder(borda);
+        FormFields[0].add(CreateTitle);
         FormFields[0].add(new JLabel("Duração"));
-        InsDuracao = new JTextArea();
-        InsDuracao.setBorder(borda);
-        FormFields[0].add(InsDuracao);
+        CreateDuration = new JTextArea();
+        CreateDuration.setBorder(borda);
+        FormFields[0].add(CreateDuration);
         FormFields[0].add(new JLabel("Letra"));
-        InsLetra = new JTextArea();
-        InsLetra.setBorder(borda);
-        FormFields[0].add(InsLetra);
+        CreateLyrics = new JTextArea();
+        CreateLyrics.setBorder(borda);
+        FormFields[0].add(CreateLyrics);
 
         FormFields[1].setLayout(new GridLayout(5, 2));
-        FormFields[1].add(new JLabel("Alterar dados da música"));
-        BAlterar = new JButton("Alterar");
-        BAlterar.addActionListener(new Altera());
-        FormFields[1].add(BAlterar);
+
+        JButton UpdateBtn = new JButton("Alterar");
+        UpdateBtn.addActionListener(new UpdateFields());
+        FormFields[1].add(UpdateBtn);
         FormFields[1].add(new JLabel("Título da música a ser alterada"));
-        AltID = new JTextArea();
-        AltID.setBorder(borda);
-        FormFields[1].add(AltID);
+        UpdatableName = new JTextArea();
+        UpdatableName.setBorder(borda);
+        FormFields[1].add(UpdatableName);
         FormFields[1].add(new JLabel("Novo Título"));
-        AltTitulo = new JTextArea();
-        AltTitulo.setBorder(borda);
-        FormFields[1].add(AltTitulo);
+        UpdateTitle = new JTextArea();
+        UpdateTitle.setBorder(borda);
+        FormFields[1].add(UpdateTitle);
         FormFields[1].add(new JLabel("Nova duração"));
-        AltDuracao = new JTextArea();
-        AltDuracao.setBorder(borda);
-        FormFields[1].add(AltDuracao);
+        UpdateDuration = new JTextArea();
+        UpdateDuration.setBorder(borda);
+        FormFields[1].add(UpdateDuration);
         FormFields[1].add(new JLabel("Nova Letra"));
-        AltLetra = new JTextArea();
-        AltLetra.setBorder(borda);
-        FormFields[1].add(AltLetra);
+        UpdateLyrics = new JTextArea();
+        UpdateLyrics.setBorder(borda);
+        FormFields[1].add(UpdateLyrics);
 
         FormFields[2].setLayout(new GridLayout(2, 2));
-        FormFields[2].add(new JLabel("Excluir Excluir música"));
-        BExcluir = new JButton("Excluir");
-        BExcluir.addActionListener(new Exclui());
-        FormFields[2].add(BExcluir);
-        FormFields[2].add(new JLabel("Nome do nome da música excluida"));
-        ExcID = new JTextArea();
-        ExcID.setBorder(borda);
-        FormFields[2].add(ExcID);
 
-        Tabela = new JTable(new Object[1][4], new String[] {"Titulo", "Duração", "Letra"});
+        DeleteBtn = new JButton("Excluir");
+        DeleteBtn.addActionListener(new Deletedata());
+        FormFields[2].add(DeleteBtn);
+        DeletableName = new JTextArea();
+        DeletableName.setBorder(borda);
+        FormFields[2].add(DeletableName);
+
+        Tabela = new JTable(new Object[1][4], new String[] { "Titulo", "Duração", "Letra" });
         FormFields[3].setLayout(new GridLayout(2, 1));
         FormFields[3].add(Tabela.getTableHeader());
         FormFields[3].add(Tabela);
 
-        for (int i = 0; i < 4; i++) FormFields[i].setBorder(borda);
+        for (int i = 0; i < 4; i++)
+            FormFields[i].setBorder(borda);
         Update();
         CriaJanela(FormFields);
     }
+
+    class CreateNew implements ActionListener {
+        public void actionPerformed(ActionEvent evento) {
+            String Titulo = CreateTitle.getText();
+            String Duracao = CreateDuration.getText();
+            String Letra = CreateLyrics.getText();
+
+            try {
+                SQLStatement.executeUpdate(
+                        "INSERT INTO MUSICAS VALUES('" + Titulo + "', '" + Duracao + "', '" + Letra + "')");
+            } catch (SQLException erro) {
+                erro.printStackTrace();
+                System.exit(1);
+            }
+            Update();
+        }
+    }
+
+    class UpdateFields implements ActionListener {
+
+        public void actionPerformed(ActionEvent evento) {
+            String musicaAtualizada = UpdatableName.getText();
+            String Titulo = UpdateTitle.getText();
+            String Duracao = UpdateDuration.getText();
+            String Letra = UpdateLyrics.getText();
+
+            try {
+                SQLStatement.executeUpdate("UPDATE MUSICAS SET TITULO='" + Titulo + "', DURACAO='" + Duracao
+                        + "', LETRA='" + Letra + "' WHERE TITULO='" + musicaAtualizada + "'");
+            } catch (SQLException erro) {
+                erro.printStackTrace();
+                System.exit(1);
+            }
+            Update();
+        }
+    }
+
+    class Deletedata implements ActionListener {
+        public void actionPerformed(ActionEvent evento) {
+            String Titulo = DeletableName.getText();
+
+            try {
+                SQLStatement.executeUpdate("DELETE FROM MUSICAS WHERE TITULO='" + Titulo + "'");
+            } catch (SQLException erro) {
+                erro.printStackTrace();
+                System.exit(1);
+            }
+            Update();
+        }
+    }
+
     public void Update() {
-        DefaultTableModel Modelo = new DefaultTableModel(new Object[] {"Título", "Duração", "Letra"}, 0);
+        DefaultTableModel Modelo = new DefaultTableModel(new Object[] { "Título", "Duração", "Letra" }, 0);
         try {
             ResultSet Dados = SQLStatement.executeQuery("SELECT * FROM MUSICAS");
             while (Dados.next()) {
                 String Titulo = Dados.getString("TITULO");
                 float Duracao = Dados.getFloat("DURACAO");
                 String Letra = Dados.getString("LETRA");
-                Modelo.addRow(new Object[] {Titulo, Duracao, Letra});
+                Modelo.addRow(new Object[] { Titulo, Duracao, Letra });
                 Dados.next();
             }
         } catch (SQLException erro) {
@@ -109,50 +163,5 @@ public class Musicas extends WindowDatabase {
             System.exit(1);
         }
         Tabela.setModel(Modelo);
-    }
-    class Insere implements ActionListener {
-        public void actionPerformed(ActionEvent evento) {
-            String Titulo = InsTitulo.getText();
-            String Duracao = InsDuracao.getText();
-            String Letra = InsLetra.getText();
-   
-            try {
-                SQLStatement.executeUpdate("INSERT INTO MUSICAS VALUES('"+ Titulo +"', '"+ Duracao +"', '"+ Letra +"')");
-            } catch(SQLException erro) {
-                erro.printStackTrace();
-                System.exit(1);
-            }
-            Update();
-        }
-    }
-    class Altera implements ActionListener {
-        
-        public void actionPerformed(ActionEvent evento) {
-            String ClienteEspecificado = AltID.getText();
-            String Titulo = AltTitulo.getText();
-            String Duracao = AltDuracao.getText();
-            String Letra = AltLetra.getText();
-   
-            try {
-                SQLStatement.executeUpdate("UPDATE MUSICAS SET TITULO='"+ Titulo +"', DURACAO='"+ Duracao +"', LETRA='"+ Letra +"' WHERE TITULO='"+ ClienteEspecificado +"'");
-            } catch(SQLException erro) {
-                erro.printStackTrace();
-                System.exit(1);
-            }
-            Update();
-        }
-    }
-    class Exclui implements ActionListener {
-        public void actionPerformed(ActionEvent evento) {
-            String Titulo = ExcID.getText();
-    
-            try {
-                SQLStatement.executeUpdate("DELETE FROM MUSICAS WHERE TITULO='"+ Titulo +"'");
-            } catch(SQLException erro) {
-                erro.printStackTrace();
-                System.exit(1);
-            }
-            Update();
-        }
     }
 }
