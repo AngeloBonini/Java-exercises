@@ -21,9 +21,7 @@ public class Main extends JPanel {
 		final Tetris jogador1 = new Tetris(0, 0);
 		jogador1.inicia();
 		f.add(jogador1);
-		// final Tetris jogador2 = new Tetris(400, 0);
-		// jogador2.inicia();
-		// f.add(jogador2);
+
 
 		f.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {
