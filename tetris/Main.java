@@ -14,7 +14,7 @@ public class Main extends JPanel {
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Tetris");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(12 * 26 + 500, 52 * 23 + 10);
+		f.setSize(12 * 26 + 500, 52 * 15 + 10);
 
 		f.setVisible(true);
 

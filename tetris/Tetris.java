@@ -79,26 +79,28 @@ public class Tetris extends JPanel {
 
 	public long score;
 	public Color[][] well;
+	public Color[][] well2;
 
-	// public int dist1;
-	// public int dist2;
-
-
-
-	// public Tetris(int espaco, int espaco2) {
-	// 	dist1 = espaco;
-	// 	dist2 = espaco2;
-    // }
 
 
 	public void inicia() {
 		well = new Color[12][24];
+		well2 = new Color[362][24];
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 23; j++) {
 				if (i == 0 || i == 11 || j == 22) {
 					well[i][j] = Color.GRAY;
 				} else {
 					well[i][j] = Color.BLACK;
+				}
+			}
+		}
+		for (int i = 350; i < 362; i++) {
+			for (int j = 0; j < 23; j++) {
+				if (i == 350 || i == 361 || j == 22) {
+					well2[i][j] = Color.GRAY;
+				} else {
+					well2[i][j] = Color.BLACK;
 				}
 			}
 		}
@@ -221,6 +223,17 @@ public class Tetris extends JPanel {
 			for (int j = 0; j < 23; j++) {
 				g.setColor(well[i][j]);
 				g.fillRect(26*i, 26*j, 25, 25);
+				
+			}
+		}
+
+		g.fillRect(350, 0, 26*12, 26*23);
+		for (int i = 350; i < 362; i++) {
+			for (int j = 0; j < 23; j++) {
+				g.setColor(well2[i][j]);
+				g.fillRect(26*i, 26*j, 25, 25);
+
+			
 			}
 		}
 		
