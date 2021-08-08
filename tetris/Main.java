@@ -14,14 +14,16 @@ public class Main extends JPanel {
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Tetris");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(12 * 26 + 500, 52 * 23 + 50);
+		f.setSize(12 * 26 + 500, 52 * 23 + 10);
 
 		f.setVisible(true);
 
 		final Tetris jogador1 = new Tetris(0, 0);
+		final Tetris2 jogador2 = new Tetris2(350, 0);
 		jogador1.inicia();
+		jogador2.inicia();
 		f.add(jogador1);
-
+		f.add(jogador2);
 
 		f.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {
