@@ -68,7 +68,7 @@ public class Tetris extends JPanel {
 			}
 	};
 	
-	private final Color[] tetraminoColors = {
+	private final Color[] coresTetraminos = {
 		Color.cyan, Color.blue, Color.orange, Color.yellow, Color.green, Color.pink, Color.red
 	};
 	
@@ -80,15 +80,15 @@ public class Tetris extends JPanel {
 	public long score;
 	public Color[][] well;
 
-	public int dist1;
-	public int dist2;
+	// public int dist1;
+	// public int dist2;
 
 
 
-	public Tetris(int espaco, int espaco2) {
-		dist1 = espaco;
-		dist2 = espaco2;
-    }
+	// public Tetris(int espaco, int espaco2) {
+	// 	dist1 = espaco;
+	// 	dist2 = espaco2;
+    // }
 
 
 	public void inicia() {
@@ -155,7 +155,7 @@ public class Tetris extends JPanel {
 	
 	public void fronteiraMuro() {
 		for (Point p : Tetraminos[pedacoAtual][rotacao]) {
-			well[origemPedaco.x + p.x][origemPedaco.y + p.y] = tetraminoColors[pedacoAtual];
+			well[origemPedaco.x + p.x][origemPedaco.y + p.y] = coresTetraminos[pedacoAtual];
 		}
 		limpaLinhas();
 		novoPedaco();
@@ -205,7 +205,7 @@ public class Tetris extends JPanel {
 	}
 	
 	public void desenhaPedaco(Graphics g) {		
-		g.setColor(tetraminoColors[pedacoAtual]);
+		g.setColor(coresTetraminos[pedacoAtual]);
 		for (Point p : Tetraminos[pedacoAtual][rotacao]) {
 			g.fillRect((p.x + origemPedaco.x) * 26, 
 					   (p.y + origemPedaco.y) * 26, 
@@ -216,7 +216,7 @@ public class Tetris extends JPanel {
 	@Override 
 	public void paintComponent(  Graphics g)
 	{
-		g.fillRect(dist1, dist2, 26*12, 26*23);
+		g.fillRect(0, 0, 26*12, 26*23);
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 23; j++) {
 				g.setColor(well[i][j]);
