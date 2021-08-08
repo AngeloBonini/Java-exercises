@@ -6,7 +6,7 @@ import java.util.Collections;
 
 import javax.swing.JPanel;
 
-public class Tetris extends JPanel {
+public class Tetris2 extends JPanel {
 
 	private static final long serialVersionUID = -8715353373678321308L;
 
@@ -85,7 +85,7 @@ public class Tetris extends JPanel {
 
 
 
-	public Tetris(int espaco, int espaco2) {
+	public Tetris2(int espaco, int espaco2) {
 		dist1 = espaco;
 		dist2 = espaco2;
     }
