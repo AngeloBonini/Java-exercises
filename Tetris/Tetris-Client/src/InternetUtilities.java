@@ -16,7 +16,7 @@ public class InternetUtilities {
 
     public String postRequest(String endpoint, HashMap<String, String> data) {
         try {
-            String url = "http://YOUR-IP-HERE.COM:4444" + endpoint;
+            String url = "http://177.194.13.87:4444" + endpoint;
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
