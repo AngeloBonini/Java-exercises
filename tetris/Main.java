@@ -14,16 +14,15 @@ public class Main extends JPanel {
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Tetris");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(12 * 26 + 500, 52 * 23 + 10);
+		f.setSize(12 * 26 + 500, 52 * 15 + 10);
 
 		f.setVisible(true);
 
-		final Tetris jogador1 = new Tetris(0, 0);
-		final Tetris2 jogador2 = new Tetris2(350, 0);
+		final Tetris jogador1 = new Tetris();
 		jogador1.inicia();
-		jogador2.inicia();
+		// jogador2.inicia();
+		// f.add(jogador2);
 		f.add(jogador1);
-		f.add(jogador2);
 
 		f.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {
@@ -45,7 +44,22 @@ public class Main extends JPanel {
 						break;
 					case KeyEvent.VK_SPACE:
 						jogador1.cai();
-						jogador1.score += 1;
+						break;
+
+						case KeyEvent.VK_W:
+						jogador1.rotacionatabuleiro2(-1);
+						break;
+					case KeyEvent.VK_S:
+						jogador1.rotacionatabuleiro2(+1);
+						break;
+					case KeyEvent.VK_A:
+						jogador1.movetabuleiro2(-1);
+						break;
+					case KeyEvent.VK_D:
+						jogador1.movetabuleiro2(+1);
+						break;
+					case KeyEvent.VK_T:
+						jogador1.caiTabuleiro2();
 						break;
 				}
 			}
@@ -61,11 +75,14 @@ public class Main extends JPanel {
 					try {
 						Thread.sleep(1000);
 						jogador1.cai();
+						jogador1.caiTabuleiro2();
 					} catch (InterruptedException e) {
 					}
 				}
 			}
 		}.start();
+
+	
 
 	}
 }
