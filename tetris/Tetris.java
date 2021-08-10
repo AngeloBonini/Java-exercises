@@ -72,7 +72,7 @@ public class Tetris extends JPanel {
 		well = new Color[25][24];
 		for (int i = 0; i < 25; i++) {
 			for (int j = 0; j < 23; j++) {
-				if (i == 0 || i == 11 || i == 12 || i == 24 || j == 22) {
+				if (i == 0 || i == 11 || i == 12 || i == 23 || i == 24|| j == 22) {
 					well[i][j] = Color.GRAY;
 				} else {
 					well[i][j] = Color.BLACK;
