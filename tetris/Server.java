@@ -16,11 +16,11 @@ import javax.swing.JTextArea;
 
 public class Server extends JFrame {
     private ServerSocket server = null;
-    private int PORT = 40541;
-    private final int MAX_CONNECTED_USERS = 2;
+    private int PORT = 40642;
+    // private final int MAX_CONNECTED_USERS = 2;
     private JTextArea console;
-    private HashMap<Integer, ObjectOutputStream> oosList;
-    private Socket client;
+    private HashMap<Integer, ObjectOutputStream> listaJogadores;
+     Socket client;
 
     public Server() {
         super("Servidor Tetris");
@@ -44,17 +44,17 @@ public class Server extends JFrame {
 
     private void startServer() {
         try {
-            oosList = new HashMap<>();
+            listaJogadores = new HashMap<>();
             console.append("Iniciando servidor.\n");
             console.append("Aguardando conexões.\n");
             server = new ServerSocket(PORT);
-            for (int i = 1; i <= MAX_CONNECTED_USERS; i++) {
+            for (int i = 1; i <= numMaximoJogadores; i++) {
                 client = server.accept();
                 String name = client.getInetAddress().getHostName();
                 console.append(name + " acabou de se conectar.\n");
-                oosList.put(i, new ObjectOutputStream(client.getOutputStream()));
+                listaJogadores.put(i, new ObjectOutputStream(client.getOutputStream()));
                 //Informa o id para seu cliente, para saber se ele é o player 1 ou 2
-                oosList.get(i).writeObject("id:" + i);
+                listaJogadores.get(i).writeObject("id:" + i);
                 new ServerThread(i).start();
             }
             new GameTasks();
@@ -63,8 +63,10 @@ public class Server extends JFrame {
             e.printStackTrace();
         }
     }
+    
+}
 
-    private class ServerThread extends Thread {
+     class ServerThread extends Thread implements IJogo {
         private int id;
 
         public ServerThread(int id) {
@@ -77,37 +79,45 @@ public class Server extends JFrame {
             try {
                 ObjectInputStream input = new ObjectInputStream(client.getInputStream());
                 while ((data = input.readObject()) != null) {
-                    for (int i : oosList.keySet()) {
-                        if (i != id && oosList.containsKey(i)) {
-                            oosList.get(i).writeObject(data);
-                            oosList.get(i).flush();
+                    for (int i : listaJogadores.keySet()) {
+                        if (i != id && listaJogadores.containsKey(i)) {
+                            listaJogadores.get(i).writeObject(data);
+                            listaJogadores.get(i).flush();
                         }
                     }
                 }
                 input.reset();
                 input.close();
             } catch (Exception ex) {
-                console.append("The client: " + id + " has disconected.\n");
+                console.append("O cliente: " + id + " disconectou.\n");
                 disconect();
             }
         }
 
         private void disconect() {
             try {
-                oosList.get(id).close();
+                listaJogadores.get(id).close();
             } catch (IOException ex) {
                 console.append(ex.getMessage() + "\n");
             }
-            oosList.remove(id);
+            listaJogadores.remove(id);
         }
+        
+            public static void main(String args[]) {
+                new Server();
+            }
+        
+            public int numMaximoJogadores(){
+                return 2;
+            }
+            public void iniciaLogica(ILogica logica){
+                this.logica = logica;
+            }
+        
+            public void inicia(){
+                start();
+            }
     }
+class Logica implements Ilogica {
 
-    //
-    private class GameTasks {
-
-    }
-
-    public static void main(String args[]) {
-        new Server();
-    }
 }

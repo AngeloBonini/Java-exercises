@@ -18,11 +18,9 @@ public class Main extends JPanel {
 
 		f.setVisible(true);
 
-		final Tetris jogador1 = new Tetris();
-		jogador1.inicia();
-		// jogador2.inicia();
-		// f.add(jogador2);
-		f.add(jogador1);
+		final Tetris jogadores = new Tetris();
+		jogadores.inicia();
+		f.add(jogadores);
 
 		f.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {
@@ -31,35 +29,35 @@ public class Main extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
-						jogador1.rotaciona(-1);
+						jogadores.rotaciona(-1);
 						break;
 					case KeyEvent.VK_DOWN:
-						jogador1.rotaciona(+1);
+						jogadores.rotaciona(+1);
 						break;
 					case KeyEvent.VK_LEFT:
-						jogador1.move(-1);
+						jogadores.move(-1);
 						break;
 					case KeyEvent.VK_RIGHT:
-						jogador1.move(+1);
+						jogadores.move(+1);
 						break;
 					case KeyEvent.VK_SPACE:
-						jogador1.cai();
+						jogadores.cai();
 						break;
 
 						case KeyEvent.VK_W:
-						jogador1.rotacionatabuleiro2(-1);
+						jogadores.rotacionatabuleiro2(-1);
 						break;
 					case KeyEvent.VK_S:
-						jogador1.rotacionatabuleiro2(+1);
+						jogadores.rotacionatabuleiro2(+1);
 						break;
 					case KeyEvent.VK_A:
-						jogador1.movetabuleiro2(-1);
+						jogadores.movetabuleiro2(-1);
 						break;
 					case KeyEvent.VK_D:
-						jogador1.movetabuleiro2(+1);
+						jogadores.movetabuleiro2(+1);
 						break;
 					case KeyEvent.VK_T:
-						jogador1.caiTabuleiro2();
+						jogadores.caiTabuleiro2();
 						break;
 				}
 			}
@@ -74,8 +72,8 @@ public class Main extends JPanel {
 				while (true) {
 					try {
 						Thread.sleep(1000);
-						jogador1.cai();
-						jogador1.caiTabuleiro2();
+						jogadores.cai();
+						jogadores.caiTabuleiro2();
 					} catch (InterruptedException e) {
 					}
 				}
