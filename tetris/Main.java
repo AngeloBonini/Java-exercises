@@ -20,10 +20,10 @@ public class Main extends JPanel {
 
 		final Tetris jogador1 = new Tetris();
 		final Tetris2 jogador2 = new Tetris2();
-		// jogador1.inicia();
-		jogador2.inicia();
-		f.add(jogador2);
-		// f.add(jogador1);
+		jogador1.inicia();
+		// jogador2.inicia();
+		// f.add(jogador2);
+		f.add(jogador1);
 
 		f.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {
@@ -54,31 +54,31 @@ public class Main extends JPanel {
 			}
 		});
 
-		// new Thread() {
-		// 	@Override
-		// 	public void run() {
-		// 		while (true) {
-		// 			try {
-		// 				Thread.sleep(1000);
-		// 				jogador1.cai();
-		// 			} catch (InterruptedException e) {
-		// 			}
-		// 		}
-		// 	}
-		// }.start();
-
 		new Thread() {
 			@Override
 			public void run() {
 				while (true) {
 					try {
 						Thread.sleep(1000);
-						jogador2.cai();
+						jogador1.cai();
 					} catch (InterruptedException e) {
 					}
 				}
 			}
 		}.start();
+
+		// new Thread() {
+		// 	@Override
+		// 	public void run() {
+		// 		while (true) {
+		// 			try {
+		// 				Thread.sleep(1000);
+		// 				jogador2.cai();
+		// 			} catch (InterruptedException e) {
+		// 			}
+		// 		}
+		// 	}
+		// }.start();
 
 	}
 }
