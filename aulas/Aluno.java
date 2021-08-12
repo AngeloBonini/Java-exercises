@@ -1,8 +1,6 @@
-public class Pessoa{
-    private String nome;
-    private String endereco;
-    private Integer telefone;
+public class Aluno extends Pessoa {
 
+    private String registroAcademico;
 
     static String retornaNome(){
         return nome;
@@ -12,6 +10,9 @@ public class Pessoa{
     }
     static String retornaEndereco(){
         return endereco;
+    }
+    static String retornaRA(){
+        return registroAcademico;
     }
 
     static String editaNome(String novoNome){
@@ -26,6 +27,10 @@ public class Pessoa{
         endereco = novoEndereco;
         return novoEndereco;
     }
+    static String editaRA(String novoRA){
+        registroAcademico = novoRA;
+        return novoRA;
+    }
 
     static void imprimeValores(){
         System.out.println(nome, telefone, endereco)
@@ -34,6 +39,6 @@ public class Pessoa{
 
     public static void main(String[] args) {
         
-        new Pessoa()
+        new Aluno()
     }
 }
