@@ -44,27 +44,38 @@ class Jogo extends Thread implements IJogo {
     DataOutputStream[] osList = new DataOutputStream[2];
     long scoreTabuleiro1=0;
     long scoreTabuleiro2=0;
-    int origemPedacoTabuleiro1X;
-    int origemPedacoTabuleiro1Y;
-    int origemPedacoTabuleiro2X;
-    int origemPedacoTabuleiro2Y;
 
-    int rotacaoTabuleiro1;
-    int rotacaoTabuleiro2;
+
+    int rotacaoTabuleiro1=0;
+    int rotacaoTabuleiro2=0;
 
 
     int jogadoresConectados =0;
     public void run(){
         int numeroJogador = 0;
-        try{
+     
+    }
 
-        }
+    public int numMaximoJogadores(){
+      return 2;
+    }
+
+    public void iniciaLogica(ILogica logica){
+      this.logica = logica;
+    }
+
+    public void inicia(){
+      start();
     }
 }
 
 
 class Logica implements ILogica{
     Jogo jogo;
+    int coordX_tab1 = 5;
+    int coordY_tab = 2;
+    int coordX_tab2 = 17;
+
 
     Logica(IJogo jogo){
         this.jogo = (Jogo) jogo;
@@ -72,6 +83,29 @@ class Logica implements ILogica{
 
     public void executa(){
         limitesTabuleiro1();
-        enviaPedaco1();
+        enviaPedaco1X();
+        enviaPedaco2X();
+        enviaPedacoY();
     }
+
+
+    public int limitesTabuleiro1(){
+
+    }
+
+    public int limitesTabuleiro2(){
+
+    }
+
+   public int  enviaPedaco1X(){
+          return coordX_tab1;
+    }
+    
+    public int enviaPedaco2X(){
+          return coordX_tab2;
+     }
+    public int enviaPedacoY(){
+          return coordY_tab;
+    }
+
 }
