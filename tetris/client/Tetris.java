@@ -202,6 +202,13 @@ public class Tetris extends JPanel {
 			}
 		}
 	}
+	public void deletaLinhaTabuleiro2(int row) {
+		for (int j = row - 1; j > 0; j--) {
+			for (int i = 13; i < 23; i++) {
+				well[i][j + 1] = well[i][j];
+			}
+		}
+	}
 
 	public void limpaLinhas() {
 		boolean gap;
@@ -251,7 +258,7 @@ public class Tetris extends JPanel {
 				}
 			}
 			if (!gapTabuleiro2) {
-				deletaLinha(j);
+				deletaLinhaTabuleiro2(j);
 				j += 1;
 				numClearsTab2 += 1;
 			}
@@ -298,7 +305,6 @@ public class Tetris extends JPanel {
 			}
 		}
 
-		// g.setColor(Color.WHITE);
 		g.drawString("" + score, 19 * 12, 25);
 		g.drawString("" + scoreTabuleiro2, 19 * 30, 25);
 
